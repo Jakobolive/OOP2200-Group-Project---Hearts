@@ -17,6 +17,8 @@ namespace HeartsCardGame
         // Define the string for cardSuit and cardValue.
         private string cardSuit;
         private string cardValue;
+        private bool dangerCard; // Meaning the card is either a heart or the queen of spades.
+        private int pointValue; // set to 0 if it is a base card, 1 if it is in the heart suit, and 13? if it is the queen of spades.
         #endregion
         #region Constructors
         /// <summary>
@@ -28,16 +30,20 @@ namespace HeartsCardGame
         }
 
         /// <summary>
-        /// Creates a paramaterized constructor that is passed the assignedSuit and assignedValue, this constructor 
+        /// Creates a paramaterized constructor that is passed the assignedSuit and assignedValue danger bool, and point value, this constructor 
         /// will then assign the assigned values to a card object.
         /// </summary>
         /// <param name="assignedSuit"></param>
         /// <param name="assignedValue"></param>
-        public Card(string assignedSuit, string assignedValue)
+        /// <param name="dangerCardBool"></param>
+        /// <param name="cardPointValue"></param>
+        public Card(string assignedSuit, string assignedValue, bool dangerCardBool, int cardPointValue)
         {
             // Assigning values.
             cardSuit = assignedSuit;
             cardValue = assignedValue;
+            dangerCard = dangerCardBool;
+            pointValue = cardPointValue; 
         }
         #endregion
 
@@ -58,6 +64,24 @@ namespace HeartsCardGame
         {
             get { return cardValue; }
             set { cardValue = value; }
+        }
+
+        /// <summary>
+        /// This function is a basic getter and setter for the danger card variable.
+        /// </summary>
+        protected internal string dangerCard
+        {
+            get { return dangerCard; }
+            set { dangerCard = value; }
+        }
+
+        /// <summary>
+        /// This function is a basic getter and setter for the point value variable.
+        /// </summary>
+        protected internal string pointValue
+        {
+            get { return pointValue; }
+            set { pointValue = value; }
         }
         #endregion
 
