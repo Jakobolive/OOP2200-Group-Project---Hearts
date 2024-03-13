@@ -1,6 +1,8 @@
-﻿// Names: 
-// Start Date: 
-// File Desc: 
+﻿// Names: Jakob Olive
+// Start Date: 2024-03-13
+// File Desc: This file will contain the Card class, this class contains the suit, value, danger, and point value
+// of each specific card that will change depending on its suit and value. These card objects will get placed
+// into a deck object.
 #region Using
 using System;
 using System.Collections.Generic;

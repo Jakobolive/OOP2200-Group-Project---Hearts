@@ -1,6 +1,8 @@
-﻿// Names: 
-// Start Date: 
-// File Desc:
+﻿// Names: Jakob Olive, 
+// Start Date: 2024-03-13
+// File Desc: This class will contains variables and constructors needed in the player class. The player objects
+// will contain a name, hand (list of card objects), and the points they have for the game. The number of players
+// can be choosen when the app first opens in the game setup region.
 using System;
 using System.Collections.Generic;
 using System.Linq;
