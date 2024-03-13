@@ -69,7 +69,7 @@ namespace HeartsCardGame
         /// <summary>
         /// This function is a basic getter and setter for the danger card variable.
         /// </summary>
-        protected internal string dangerCard
+        protected internal bool DangerCard
         {
             get { return dangerCard; }
             set { dangerCard = value; }
@@ -78,7 +78,7 @@ namespace HeartsCardGame
         /// <summary>
         /// This function is a basic getter and setter for the point value variable.
         /// </summary>
-        protected internal string pointValue
+        protected internal int PointValue
         {
             get { return pointValue; }
             set { pointValue = value; }
