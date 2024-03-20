@@ -25,7 +25,8 @@ namespace HeartsCardGame
 
         #region Build Method
         /// <summary>
-        /// Function that will build a list of 52 blank cards.
+        /// Function that will build a list of 52 cards based off the standard card deck with variables that 
+        /// suit the requirements of the points system within Hearts.
         /// </summary>
         public virtual void BuildDeck()
         {
@@ -42,12 +43,12 @@ namespace HeartsCardGame
                 foreach (var value in standardValues)
                 {
                     // Validation to check if either the suit is Hearts, or if card is the Queen of Spades.
-                    if (suit = "Hearts")
+                    if (suit == "Hearts")
                     {
                         danger = true;
                         points = 1;
                     }
-                    if (suit = "Spades" && value = "Queen")
+                    if (suit == "Spades" && value == "Queen")
                     {
                         danger = true;
                         points = 13;
