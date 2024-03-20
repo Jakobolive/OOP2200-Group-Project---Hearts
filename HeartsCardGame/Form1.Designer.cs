@@ -65,7 +65,7 @@
             this.MaxScoreLabel = new System.Windows.Forms.Label();
             this.MaxScoreTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.GameMenuStrip = new System.Windows.Forms.MenuStrip();
             this.RulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +76,7 @@
             this.GameInfoGroupBox.SuspendLayout();
             this.PlayAreaGroupBox.SuspendLayout();
             this.GameSetupGroupBox1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.GameMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // OptionsGroupBox
@@ -440,19 +440,19 @@
             this.label5.Size = new System.Drawing.Size(0, 16);
             this.label5.TabIndex = 16;
             // 
-            // menuStrip1
+            // GameMenuStrip
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GameMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.GameMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StartGameToolStripMenuItem,
             this.ResetGameToolStripMenuItem,
             this.RulesToolStripMenuItem,
             this.ExitToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
-            this.menuStrip1.TabIndex = 22;
-            this.menuStrip1.Text = "CardsMenuStrip";
+            this.GameMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.GameMenuStrip.Name = "GameMenuStrip";
+            this.GameMenuStrip.Size = new System.Drawing.Size(800, 28);
+            this.GameMenuStrip.TabIndex = 22;
+            this.GameMenuStrip.Text = "CardsMenuStrip";
             // 
             // RulesToolStripMenuItem
             // 
@@ -498,7 +498,7 @@
             this.Controls.Add(this.PlayAreaGroupBox);
             this.Controls.Add(this.GameSetupGroupBox1);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.GameMenuStrip);
             this.Name = "HeartsGame";
             this.Text = "Hearts";
             this.OptionsGroupBox.ResumeLayout(false);
@@ -510,8 +510,8 @@
             this.PlayAreaGroupBox.PerformLayout();
             this.GameSetupGroupBox1.ResumeLayout(false);
             this.GameSetupGroupBox1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.GameMenuStrip.ResumeLayout(false);
+            this.GameMenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -556,7 +556,7 @@
         private System.Windows.Forms.Label MaxScoreLabel;
         private System.Windows.Forms.TextBox MaxScoreTextBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip GameMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem RulesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ResetGameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
