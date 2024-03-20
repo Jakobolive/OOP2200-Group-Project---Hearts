@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RulesForm));
             this.RulesGroupBox = new System.Windows.Forms.GroupBox();
             this.RulesTextBox = new System.Windows.Forms.TextBox();
             this.RulesGroupBox.SuspendLayout();
@@ -38,7 +39,7 @@
             this.RulesGroupBox.Controls.Add(this.RulesTextBox);
             this.RulesGroupBox.Location = new System.Drawing.Point(12, 12);
             this.RulesGroupBox.Name = "RulesGroupBox";
-            this.RulesGroupBox.Size = new System.Drawing.Size(443, 289);
+            this.RulesGroupBox.Size = new System.Drawing.Size(443, 420);
             this.RulesGroupBox.TabIndex = 0;
             this.RulesGroupBox.TabStop = false;
             this.RulesGroupBox.Text = "Hearts Rules";
@@ -50,15 +51,16 @@
             this.RulesTextBox.Multiline = true;
             this.RulesTextBox.Name = "RulesTextBox";
             this.RulesTextBox.ReadOnly = true;
-            this.RulesTextBox.Size = new System.Drawing.Size(431, 262);
+            this.RulesTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.RulesTextBox.Size = new System.Drawing.Size(431, 396);
             this.RulesTextBox.TabIndex = 0;
-            this.RulesTextBox.Text = "Placeholder Text...";
+            this.RulesTextBox.Text = resources.GetString("RulesTextBox.Text");
             // 
             // RulesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(467, 313);
+            this.ClientSize = new System.Drawing.Size(467, 441);
             this.Controls.Add(this.RulesGroupBox);
             this.Name = "RulesForm";
             this.Text = "Rules Form";
