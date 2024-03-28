@@ -62,6 +62,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(467, 441);
             this.Controls.Add(this.RulesGroupBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(485, 488);
+            this.MinimumSize = new System.Drawing.Size(485, 488);
             this.Name = "RulesForm";
             this.Text = "Rules Form";
             this.RulesGroupBox.ResumeLayout(false);

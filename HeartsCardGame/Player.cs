@@ -35,7 +35,7 @@ namespace HeartsCardGame
         /// <param name="newPlayerName"></param>
         /// <param name="newPlayerHand"></param>
         /// <param name="newPlayerPoints"></param>
-        public Card(string newPlayerName, List<Card> newPlayerHand, int newPlayerPoints)
+        public Player(string newPlayerName, List<Card> newPlayerHand, int newPlayerPoints)
         {
             // Assigning values.
             playerName = newPlayerName;

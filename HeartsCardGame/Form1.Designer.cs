@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeartsGame));
             this.OptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.StartGameButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
             this.RulesButton = new System.Windows.Forms.Button();
             this.ResetGameButton = new System.Windows.Forms.Button();
@@ -66,11 +68,10 @@
             this.MaxScoreTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.GameMenuStrip = new System.Windows.Forms.MenuStrip();
-            this.RulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ResetGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.StartGameButton = new System.Windows.Forms.Button();
             this.StartGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ResetGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsGroupBox.SuspendLayout();
             this.PlayerInfoGroupBox.SuspendLayout();
             this.GameInfoGroupBox.SuspendLayout();
@@ -91,6 +92,15 @@
             this.OptionsGroupBox.TabIndex = 5;
             this.OptionsGroupBox.TabStop = false;
             this.OptionsGroupBox.Text = "Options";
+            // 
+            // StartGameButton
+            // 
+            this.StartGameButton.Location = new System.Drawing.Point(6, 21);
+            this.StartGameButton.Name = "StartGameButton";
+            this.StartGameButton.Size = new System.Drawing.Size(116, 91);
+            this.StartGameButton.TabIndex = 6;
+            this.StartGameButton.Text = "Start Game";
+            this.StartGameButton.UseVisualStyleBackColor = true;
             // 
             // ExitButton
             // 
@@ -402,6 +412,9 @@
             // NumOfPlayerComboBox
             // 
             this.NumOfPlayerComboBox.FormattingEnabled = true;
+            this.NumOfPlayerComboBox.Items.AddRange(new object[] {
+            "1",
+            "3"});
             this.NumOfPlayerComboBox.Location = new System.Drawing.Point(136, 58);
             this.NumOfPlayerComboBox.Name = "NumOfPlayerComboBox";
             this.NumOfPlayerComboBox.Size = new System.Drawing.Size(100, 24);
@@ -454,11 +467,11 @@
             this.GameMenuStrip.TabIndex = 22;
             this.GameMenuStrip.Text = "CardsMenuStrip";
             // 
-            // RulesToolStripMenuItem
+            // StartGameToolStripMenuItem
             // 
-            this.RulesToolStripMenuItem.Name = "RulesToolStripMenuItem";
-            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
-            this.RulesToolStripMenuItem.Text = "Rules";
+            this.StartGameToolStripMenuItem.Name = "StartGameToolStripMenuItem";
+            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
+            this.StartGameToolStripMenuItem.Text = "Start Game";
             // 
             // ResetGameToolStripMenuItem
             // 
@@ -466,26 +479,17 @@
             this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
             this.ResetGameToolStripMenuItem.Text = "Reset Game";
             // 
+            // RulesToolStripMenuItem
+            // 
+            this.RulesToolStripMenuItem.Name = "RulesToolStripMenuItem";
+            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
+            this.RulesToolStripMenuItem.Text = "Rules";
+            // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
             this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.ExitToolStripMenuItem.Text = "Exit";
-            // 
-            // StartGameButton
-            // 
-            this.StartGameButton.Location = new System.Drawing.Point(6, 21);
-            this.StartGameButton.Name = "StartGameButton";
-            this.StartGameButton.Size = new System.Drawing.Size(116, 91);
-            this.StartGameButton.TabIndex = 6;
-            this.StartGameButton.Text = "Start Game";
-            this.StartGameButton.UseVisualStyleBackColor = true;
-            // 
-            // StartGameToolStripMenuItem
-            // 
-            this.StartGameToolStripMenuItem.Name = "StartGameToolStripMenuItem";
-            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
-            this.StartGameToolStripMenuItem.Text = "Start Game";
             // 
             // HeartsGame
             // 
@@ -499,6 +503,7 @@
             this.Controls.Add(this.GameSetupGroupBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.GameMenuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HeartsGame";
             this.Text = "Hearts";
             this.OptionsGroupBox.ResumeLayout(false);
