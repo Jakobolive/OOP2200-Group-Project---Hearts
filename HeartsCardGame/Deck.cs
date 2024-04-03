@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 #endregion
 
 namespace HeartsCardGame
@@ -32,7 +33,7 @@ namespace HeartsCardGame
         {
             // Values that represent the suits and values for a standard deck of playing cards.
             string[] standardSuits = { "Hearts", "Clubs", "Diamonds", "Spades" };
-            string[] standardValues = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
+            int[] standardValues = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
             // Additional variables for the point system.
             bool danger;
             int points;
@@ -48,7 +49,7 @@ namespace HeartsCardGame
                         danger = true;
                         points = 1;
                     }
-                    if (suit == "Spades" && value == "Queen")
+                    if (suit == "Spades" && value == 12)
                     {
                         danger = true;
                         points = 13;
@@ -65,7 +66,18 @@ namespace HeartsCardGame
         }
         #endregion
 
-        #region List Functions
+        #region Code Functions
+        /// <summary>
+        /// This function will deal cards from the main deck to each players hand, It takes the last card from the 
+        /// deck, removes it from the main deck and returns it to the program to distribute in a foreach loop.
+        /// </summary>
+        /// <returns></returns>
+        public Card Deal()
+        {
+            Card card = cardDeck.Last();
+            cardDeck.Remove(card);
+            return card;
+        }
         /// <summary>
         /// Function that will take a Card object and add it to the cardDeck list.
         /// </summary>

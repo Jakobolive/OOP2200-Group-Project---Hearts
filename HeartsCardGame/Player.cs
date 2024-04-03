@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace HeartsCardGame
 {
@@ -59,7 +60,7 @@ namespace HeartsCardGame
         /// <summary>
         /// This function is a basic getter and setter for the players hand variable.
         /// </summary>
-        protected internal List<Card> PlayerHard
+        protected internal List<Card> PlayerHand
         {
             get { return playerHand; }
             set { playerHand = value; }
@@ -72,6 +73,25 @@ namespace HeartsCardGame
         {
             get { return playerPoints; }
             set { playerPoints = value; }
+        }
+        #endregion
+        #region Methods
+        /// <summary>
+        /// This function simply takes a card, and adds it to the players hand, or list of cards.
+        /// </summary>
+        /// <param name="card"></param>
+        public void AddCard(Card card)
+        {
+            playerHand.Add(card);
+        }
+
+        /// <summary>
+        /// This function takes a card, and removes it from the players hand, or the list of cards.
+        /// </summary>
+        /// <param name="card"></param>
+        public void RemoveCard(Card card)
+        {
+            playerHand.Remove(card);
         }
         #endregion
     }

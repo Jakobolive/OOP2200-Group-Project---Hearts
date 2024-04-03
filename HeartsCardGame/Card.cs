@@ -16,9 +16,9 @@ namespace HeartsCardGame
     internal class Card
     {
         #region Variables
-        // Define the string for cardSuit and cardValue.
+        // Define the string and int for cardSuit and cardValue.
         private string cardSuit;
-        private string cardValue;
+        private int cardValue;
         private bool dangerCard; // Meaning the card is either a heart or the queen of spades.
         private int pointValue; // set to 0 if it is a base card, 1 if it is in the heart suit, and 13? if it is the queen of spades.
         #endregion
@@ -29,20 +29,20 @@ namespace HeartsCardGame
         public Card()
         {
             this.cardSuit = "Diamond";
-            this.cardValue = "Ace";
+            this.cardValue = 14;
             this.dangerCard = false;
             this.pointValue = 0;
         }
 
         /// <summary>
-        /// Creates a paramaterized constructor that is passed the assignedSuit and assignedValue danger bool, and point value, this constructor 
+        /// Creates a parameterized constructor that is passed the assignedSuit and assignedValue danger bool, and point value, this constructor 
         /// will then assign the assigned values to a card object.
         /// </summary>
         /// <param name="assignedSuit"></param>
         /// <param name="assignedValue"></param>
         /// <param name="dangerCardBool"></param>
         /// <param name="cardPointValue"></param>
-        public Card(string assignedSuit, string assignedValue, bool dangerCardBool, int cardPointValue)
+        public Card(string assignedSuit, int assignedValue, bool dangerCardBool, int cardPointValue)
         {
             // Assigning values.
             cardSuit = assignedSuit;
@@ -65,7 +65,7 @@ namespace HeartsCardGame
         /// <summary>
         /// This function is a basic getter and setter for the value variable.
         /// </summary>
-        protected internal string Value
+        protected internal int Value
         {
             get { return cardValue; }
             set { cardValue = value; }
