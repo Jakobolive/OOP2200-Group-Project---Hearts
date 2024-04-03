@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Names: Jakob Olive, 
+// Start Date: 2024-04-03
+// File Desc: This 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,7 +19,16 @@ namespace HeartsCardGame
         {
             InitializeComponent();
            // ApplyTheme();
+           SetDefaults();
         }
+        /// <summary>
+        /// This is a basic method that will set the card game area back to its default state.
+        /// </summary>
+        private void SetDefaults()
+        {
+
+        }
+
         //private void ApplyTheme()
         //{
         //    string selectedTheme = Properties.Settings.Default.SelectedTheme;
