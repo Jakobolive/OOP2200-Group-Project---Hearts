@@ -110,6 +110,7 @@
             this.ExitButton.TabIndex = 35;
             this.ExitButton.Text = "Exit";
             this.ExitButton.UseVisualStyleBackColor = true;
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // RulesButton
             // 
@@ -119,6 +120,7 @@
             this.RulesButton.TabIndex = 34;
             this.RulesButton.Text = "Rules";
             this.RulesButton.UseVisualStyleBackColor = true;
+            this.RulesButton.Click += new System.EventHandler(this.RulesButton_Click);
             // 
             // ResetGameButton
             // 
@@ -128,6 +130,7 @@
             this.ResetGameButton.TabIndex = 33;
             this.ResetGameButton.Text = "Reset Game";
             this.ResetGameButton.UseVisualStyleBackColor = true;
+            this.ResetGameButton.Click += new System.EventHandler(this.ResetGameButton_Click);
             // 
             // PlayerInfoGroupBox
             // 
@@ -358,6 +361,7 @@
             this.PlayCardButton.TabIndex = 10;
             this.PlayCardButton.Text = "Play Card";
             this.PlayCardButton.UseVisualStyleBackColor = true;
+            this.PlayCardButton.Click += new System.EventHandler(this.PlayCardButton_Click);
             // 
             // CurrentTrickListView
             // 

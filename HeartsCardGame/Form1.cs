@@ -29,6 +29,50 @@ namespace HeartsCardGame
 
         }
 
+        /// <summary>
+        /// This function will be called when the user selects the Reset Button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResetGameButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// This function will be called when the user selects the Rules Button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RulesButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// This function will be called when the user selects the Exit button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// This function will be called when the user selects the play card button, or when the user 
+        /// tries to play a card.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlayCardButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        ///// <summary>
+        ///// This function will apply the style theme that the user selects based off their selection.
+        ///// </summary>
         //private void ApplyTheme()
         //{
         //    string selectedTheme = Properties.Settings.Default.SelectedTheme;
@@ -49,5 +93,5 @@ namespace HeartsCardGame
         //            break;
         //            // Add more cases for additional themes
         //    }
-        }
+        //}
 }
