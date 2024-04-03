@@ -157,20 +157,22 @@
             // 
             // textBox10
             // 
+            this.textBox10.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox10.Enabled = false;
             this.textBox10.Location = new System.Drawing.Point(163, 141);
             this.textBox10.Name = "textBox10";
             this.textBox10.ReadOnly = true;
-            this.textBox10.Size = new System.Drawing.Size(75, 22);
+            this.textBox10.Size = new System.Drawing.Size(75, 15);
             this.textBox10.TabIndex = 32;
             // 
             // textBox11
             // 
+            this.textBox11.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox11.Enabled = false;
             this.textBox11.Location = new System.Drawing.Point(82, 141);
             this.textBox11.Name = "textBox11";
             this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(72, 22);
+            this.textBox11.Size = new System.Drawing.Size(72, 15);
             this.textBox11.TabIndex = 31;
             // 
             // Player4Label
@@ -184,20 +186,22 @@
             // 
             // textBox8
             // 
+            this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox8.Enabled = false;
             this.textBox8.Location = new System.Drawing.Point(163, 107);
             this.textBox8.Name = "textBox8";
             this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(75, 22);
+            this.textBox8.Size = new System.Drawing.Size(75, 15);
             this.textBox8.TabIndex = 29;
             // 
             // textBox9
             // 
+            this.textBox9.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox9.Enabled = false;
             this.textBox9.Location = new System.Drawing.Point(82, 107);
             this.textBox9.Name = "textBox9";
             this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(72, 22);
+            this.textBox9.Size = new System.Drawing.Size(72, 15);
             this.textBox9.TabIndex = 28;
             // 
             // Player3Label
@@ -211,20 +215,22 @@
             // 
             // textBox6
             // 
+            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox6.Enabled = false;
             this.textBox6.Location = new System.Drawing.Point(163, 73);
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(75, 22);
+            this.textBox6.Size = new System.Drawing.Size(75, 15);
             this.textBox6.TabIndex = 26;
             // 
             // textBox7
             // 
+            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox7.Enabled = false;
             this.textBox7.Location = new System.Drawing.Point(82, 73);
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(72, 22);
+            this.textBox7.Size = new System.Drawing.Size(72, 15);
             this.textBox7.TabIndex = 25;
             // 
             // Player2Label
@@ -238,20 +244,22 @@
             // 
             // textBox5
             // 
+            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox5.Enabled = false;
             this.textBox5.Location = new System.Drawing.Point(162, 39);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(75, 22);
+            this.textBox5.Size = new System.Drawing.Size(75, 15);
             this.textBox5.TabIndex = 23;
             // 
             // textBox4
             // 
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox4.Enabled = false;
             this.textBox4.Location = new System.Drawing.Point(82, 39);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(72, 22);
+            this.textBox4.Size = new System.Drawing.Size(72, 15);
             this.textBox4.TabIndex = 22;
             // 
             // HandsWonLabel
@@ -297,20 +305,22 @@
             // 
             // HandNumTextBox
             // 
+            this.HandNumTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.HandNumTextBox.Enabled = false;
             this.HandNumTextBox.Location = new System.Drawing.Point(121, 21);
             this.HandNumTextBox.Name = "HandNumTextBox";
             this.HandNumTextBox.ReadOnly = true;
-            this.HandNumTextBox.Size = new System.Drawing.Size(100, 22);
+            this.HandNumTextBox.Size = new System.Drawing.Size(100, 15);
             this.HandNumTextBox.TabIndex = 15;
             // 
             // TrickNumTextBox
             // 
+            this.TrickNumTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TrickNumTextBox.Enabled = false;
             this.TrickNumTextBox.Location = new System.Drawing.Point(121, 60);
             this.TrickNumTextBox.Name = "TrickNumTextBox";
             this.TrickNumTextBox.ReadOnly = true;
-            this.TrickNumTextBox.Size = new System.Drawing.Size(100, 22);
+            this.TrickNumTextBox.Size = new System.Drawing.Size(100, 15);
             this.TrickNumTextBox.TabIndex = 17;
             // 
             // TrickNumLabel
