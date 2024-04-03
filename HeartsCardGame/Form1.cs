@@ -172,17 +172,18 @@ namespace HeartsCardGame
         private void DetermineTrickWinner()
         {
             string winningSuit = leadingSuit;
-            // Setting the winning card to the trick card to begin.
-            Card winningCard = currentTrick[0];
+            Card winningCard = currentTrick[0]; // Setting the winning card to the trick card to begin.
+            Player winningPlayer = null;
             foreach (Card card in currentTrick)
             {
                 // If the suits are the same, but the rank is greater than the trick card, you have a new winner.
                 if (card.Suit == winningSuit && card.Value > winningCard.Value)
                 {
                     winningCard = card;
+                    winningPlayer = players.Find(player => player.PlayerHand.Contains(card));
                 }
             }
-            Console.WriteLine($"Trick won by {winningCard}!");
+            // Set a message at the bottom of the page and distribute points to the winner.
             leadingSuit = null;
         }
     }
