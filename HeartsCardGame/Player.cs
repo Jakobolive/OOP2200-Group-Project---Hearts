@@ -1,4 +1,4 @@
-﻿// Names: Jakob Olive, 
+﻿// Names: Jakob Olive, Troy Mouton
 // Start Date: 2024-03-13
 // File Desc: This class will contains variables and constructors needed in the player class. The player objects
 // will contain a name, hand (list of card objects), and the points they have for the game. The number of players
@@ -25,7 +25,10 @@ namespace HeartsCardGame
         /// </summary>
         public Player()
         {
-
+            // Assigning default values for the overloaded constructor.
+            this.playerName = "John Doe";
+            this.playerHand = new List<Card>();
+            this.playerPoints = 0;
         }
 
         /// <summary>

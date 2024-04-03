@@ -1,4 +1,4 @@
-﻿// Names: Jakob Olive
+﻿// Names: Jakob Olive, Troy Mouton
 // Start Date: 2024-03-13
 // File Desc: This file will contain the Card class, this class contains the suit, value, danger, and point value
 // of each specific card that will change depending on its suit and value. These card objects will get placed
@@ -28,7 +28,10 @@ namespace HeartsCardGame
         /// </summary>
         public Card()
         {
-
+            this.cardSuit = "Diamond";
+            this.cardValue = "Ace";
+            this.dangerCard = false;
+            this.pointValue = 0;
         }
 
         /// <summary>

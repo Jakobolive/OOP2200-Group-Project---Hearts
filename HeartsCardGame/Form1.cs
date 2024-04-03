@@ -1,4 +1,4 @@
-﻿// Names: Jakob Olive, 
+﻿// Names: Jakob Olive, Troy Mouton
 // Start Date: 2024-04-03
 // File Desc: This 
 using System;
@@ -17,7 +17,7 @@ namespace HeartsCardGame
     {
         public HeartsGame()
         {
-            InitializeComponent();
+           InitializeComponent();
            // ApplyTheme();
            SetDefaults();
         }
@@ -26,7 +26,21 @@ namespace HeartsCardGame
         /// </summary>
         private void SetDefaults()
         {
+            MaxScoreTextBox.Text = string.Empty;
+            NumOfPlayerComboBox.Text = string.Empty;
+            HandNumTextBox.Text = string.Empty;
+            TrickNumTextBox.Text = string.Empty;
+            textBox4.Text = string.Empty;
+            textBox5.Text = string.Empty;
+            textBox6.Text = string.Empty;
+            textBox7.Text = string.Empty;
+            textBox8.Text = string.Empty;
+            textBox9.Text = string.Empty;
+            textBox10.Text = string.Empty;
+            textBox11.Text = string.Empty;
 
+            YourHandListView.Items.Clear();
+            CurrentTrickListView.Items.Clear();
         }
 
         /// <summary>
@@ -36,7 +50,7 @@ namespace HeartsCardGame
         /// <param name="e"></param>
         private void ResetGameButton_Click(object sender, EventArgs e)
         {
-
+            SetDefaults();
         }
 
         /// <summary>
@@ -70,6 +84,7 @@ namespace HeartsCardGame
 
         }
 
+       
         ///// <summary>
         ///// This function will apply the style theme that the user selects based off their selection.
         ///// </summary>
@@ -94,4 +109,5 @@ namespace HeartsCardGame
         //            // Add more cases for additional themes
         //    }
         //}
-}
+
+        //

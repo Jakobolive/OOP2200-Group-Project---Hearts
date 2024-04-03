@@ -1,4 +1,4 @@
-﻿// Names: Jakob Olive, 
+﻿// Names: Jakob Olive, Troy Mouton
 // Start Date: 2024-03-13
 // File Desc: This file will contain the class that will build the current hand for each player. This class
 // will contain a list of card objects and possibly have a string name attached to it to identify the player who owns
