@@ -20,6 +20,7 @@ namespace HeartsCardGame
         #region Variables
         private Deck gameDeck;
         private List<Player> players;
+        private int currentPlayerIndex;
         private List<Card> currentTrick;
         private string leadingSuit;
         private bool twoPlayerMode;
@@ -122,6 +123,24 @@ namespace HeartsCardGame
         //            break;
         //            // Add more cases for additional themes
 
+
+        private void gameSetup()
+        {
+            players = new List<Player>
+            {
+                new AIPlayer("AI Player 1"),
+                new AIPlayer("AI Player 2"),
+                new AIPlayer("AI Player 3"),
+                new HumanPlayer("You")
+            };
+
+            currentPlayerIndex = 0;
+            currentTrick = new List<Card>();
+
+            DealCards();
+            PlayTrick();
+        }
+
         /// <summary>
         /// This function will deal cards from the main deck housed within the Deck class and redistribute them
         /// to the players. This function uses a foreach loop to iterate through the registered players and will
@@ -182,7 +201,7 @@ namespace HeartsCardGame
         {
             // Setting the variable for the leading suit and the temp winning card.
             string winningSuit = leadingSuit;
-            Card winningCard = currentTrick[0]; 
+            Card winningCard = currentTrick[0];
             // Setting a winning player to null to be searched for and set later.
             Player winningPlayer = null;
             foreach (Card card in currentTrick)
@@ -196,61 +215,6 @@ namespace HeartsCardGame
             winningPlayer = players.Find(player => player.PlayerHand.Contains(winningCard));
             // Set a message at the bottom of the page and distribute points to the winner.
             leadingSuit = null;
-        }
-
-        /// <summary>
-        /// This function will take the card that the player or AI selects and run it against some tests
-        /// to ensure that it is in valid play. These tests will be to test if the hearts have been broken
-        /// as well as a test that checks if the players hand contains any cards of the selected trick.
-        /// </summary>
-        /// <param name="selectedCard"></param>
-        /// /// <param name="currentPlayer"></param>
-        /// <returns> Results of card validation. </returns>
-        private bool validatePlayerSelection(Card selectedCard, Player currentPlayer)
-        {
-            // First, check if a leading suit has been selected, if not, it must be the first card.
-            if (leadingSuit == null)
-            {
-                // If the player selects a heart right off the bat, but the hearts are not broken, the selection is invalid.
-                if (selectedCard.Suit == "Hearts" && !heartsBroken)
-                {
-                    // display message.
-                    return false;
-                }
-                // Otherwise, it is not a heart or the hearts are broken, it is valid.
-                else
-                {
-                    // Display message.
-                    return true;
-                }
-            }
-            // If the user selects a card that is not of the leading suit, and the hearts are not broken.
-            if (!heartsBroken && selectedCard.Suit != leadingSuit)
-            {
-                // Check if the player has a valid card in their hand, if they do, reject their selection.
-                if(currentPlayer.PlayerHand.Any(card => card.Suit == leadingSuit))
-                    {
-                        // Display message.
-                        return false;
-                    }
-                // Else, according to the rules of hearts, their selection is valid as they cannot play a card of the leading suit.
-                else
-                {
-                    // Check if the selected card is a heart, if it is, the hearts are now broken.
-                    if(selectedCard.Suit == "Hearts")
-                    {
-                        heartsBroken = true;
-                    }
-                    // Display message
-                    return true;
-                } 
-            }
-            // Otherwise, Either the hearts are broken or the card is of the leading suit, therefore it is valid.
-            else
-            {
-                // Display Message.
-                return true;
-            }
         }
         #endregion
     }

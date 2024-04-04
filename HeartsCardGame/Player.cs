@@ -12,13 +12,13 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace HeartsCardGame
 {
-    internal class Player
+    internal abstract class Player
     {
         #region Variables
         // Define the string for cardSuit and cardValue. Player(String name, List<Card> hand, int points)
-        private string playerName;
-        private List<Card> playerHand;
-        private int playerPoints;
+        protected string playerName;
+        protected List<Card> playerHand;
+        protected int playerPoints;
         #endregion
         #region Constructors
         /// <summary>
@@ -26,10 +26,15 @@ namespace HeartsCardGame
         /// </summary>
         public Player()
         {
+
+        }
+
+        public Player(string newPlayerName)
+        {
             // Assigning default values for the overloaded constructor.
-            this.playerName = "John Doe";
-            this.playerHand = new List<Card>();
-            this.playerPoints = 0;
+            playerName = newPlayerName;
+            playerHand = new List<Card>();
+            playerPoints = 0;
         }
 
         /// <summary>
@@ -93,6 +98,15 @@ namespace HeartsCardGame
         {
             playerHand.Remove(card);
         }
+
+        /// <summary>
+        /// The abstract function that allows the play of a card to be handled differently depending on if the 
+        /// player is human or an AI personality. This function will be expanded upon in both the HumanPlayer.cs 
+        /// as well as the AIPlayer.cs file.
+        /// </summary>
+        /// <param name="currentRound"></param>
+        /// <returns></returns>
+        public abstract Card PlayCard(List<Card> currentRound);
         #endregion
     }
 }

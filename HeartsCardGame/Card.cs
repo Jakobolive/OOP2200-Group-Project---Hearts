@@ -28,10 +28,7 @@ namespace HeartsCardGame
         /// </summary>
         public Card()
         {
-            this.cardSuit = "Diamond";
-            this.cardValue = 14;
-            this.dangerCard = false;
-            this.pointValue = 0;
+
         }
 
         /// <summary>
