@@ -63,10 +63,28 @@ namespace HeartsCardGame
                     cardDeck.Add(new Card(suit, value, danger, points));
                 }
             }
+            // Calling the shuffle method.
+            Shuffle();
         }
         #endregion
 
         #region Code Functions
+        /// <summary>
+        /// This function will use a Random object to shuffle the deck of cards
+        /// </summary>
+        public void Shuffle()
+        {
+            Random randomShuffle = new Random();
+            int n = cardDeck.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = randomShuffle.Next(n + 1);
+                Card value = cardDeck[k];
+                cardDeck[k] = cardDeck[n];
+                cardDeck[n] = value;
+            }
+        }
         /// <summary>
         /// This function will deal cards from the main deck to each players hand, It takes the last card from the 
         /// deck, removes it from the main deck and returns it to the program to distribute in a foreach loop.
@@ -78,44 +96,26 @@ namespace HeartsCardGame
             cardDeck.Remove(card);
             return card;
         }
-        /// <summary>
-        /// Function that will take a Card object and add it to the cardDeck list.
-        /// </summary>
-        /// <param name="card"></param>
-        public void AddCardToList(Card card)
-        {
-            // Adding the Card to the List.
-            cardDeck.Add(card);
-        }
 
-        /// <summary>
-        /// Function that will delete the top index from a list. (Used In Shuffle)
-        /// </summary>
-        public void DeleteCardFromList()
-        {
-            // Remove Card at index of List.
-            cardDeck.RemoveAt(0);
-        }
+        ///// <summary>
+        ///// This function will get the list and return it for use in the form.
+        ///// </summary>
+        ///// <returns></returns>
+        //public List<Card> GetDeck()
+        //{
+        //    // Return the list.
+        //    return cardDeck;
+        //}
 
-        /// <summary>
-        /// This function will get the list and return it for use in the form.
-        /// </summary>
-        /// <returns></returns>
-        public List<Card> GetDeck()
-        {
-            // Return the list.
-            return cardDeck;
-        }
-
-        /// <summary>
-        /// This function will set the values of the current list to the values of a new list. (Used In Shuffle And Deck Creation)
-        /// </summary>
-        /// <param name="newDeck"></param>
-        public void SetDeck(List<Card> newDeck)
-        {
-            // Setting the cardDeck to the values of a newDeck.
-            cardDeck = newDeck;
-        }
+        ///// <summary>
+        ///// This function will set the values of the current list to the values of a new list. (Used In Shuffle And Deck Creation)
+        ///// </summary>
+        ///// <param name="newDeck"></param>
+        //public void SetDeck(List<Card> newDeck)
+        //{
+        //    // Setting the cardDeck to the values of a newDeck.
+        //    cardDeck = newDeck;
+        //}
         #endregion
     }
 }

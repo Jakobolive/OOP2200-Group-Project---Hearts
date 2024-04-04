@@ -22,6 +22,8 @@ namespace HeartsCardGame
         private List<Player> players;
         private List<Card> currentTrick;
         private string leadingSuit;
+        private bool twoPlayerMode;
+        private bool heartsBroken = false;
         #endregion
         #region Initialize 
         public HeartsGame()
@@ -101,8 +103,9 @@ namespace HeartsCardGame
         ///// </summary>
         //private void ApplyTheme()
         //{
+        // Need to work the two player mode selection into this somehow.
         //    string selectedTheme = Properties.Settings.Default.SelectedTheme;
-
+        //    twoPlayerMode =;
         //    // Apply styles based on selected theme
         //    switch (selectedTheme)
         //    {
@@ -122,32 +125,33 @@ namespace HeartsCardGame
         /// <summary>
         /// This function will deal cards from the main deck housed within the Deck class and redistribute them
         /// to the players. This function uses a foreach loop to iterate through the registered players and will
-        /// call the Deck.Deal function to populate the players hand accordingly.
+        /// call the Deck.Deal function to populate the players hand accordingly. The cards are divided into
+        /// different amounts depending if the user selected 2 or 4 player mode in game setup.
         /// </summary>
-        public void DealCards()
+        private void DealCards()
         {
             foreach (Player player in players)
             {
                 // This could work given that we add a bool variable for twoPlayerMode.
-                //if (twoPlayerMode == true)
-                //{
-                //    for (int I = 0; I < 26; I++)
-                //    {
-                //        player.AddCard(gameDeck.Deal());
-                //    }
-                //}
-                //else
-                //{
-                //    for (int I = 0; I < 13; I++)
-                //    {
-                //        player.AddCard(gameDeck.Deal());
-                //    }
-                //}
-                // Change later to suit player functionality due to our 2 or 4 player option.
-                for (int i = 0; i < 13; i++)
+                if (twoPlayerMode == true)
                 {
-                    player.AddCard(gameDeck.Deal());
+                    for (int I = 0; I < 26; I++)
+                    {
+                        player.AddCard(gameDeck.Deal());
+                    }
                 }
+                else
+                {
+                    for (int I = 0; I < 13; I++)
+                    {
+                        player.AddCard(gameDeck.Deal());
+                    }
+                }
+                //// Change later to suit player functionality due to our 2 or 4 player option.
+                //for (int i = 0; i < 13; i++)
+                //{
+                //    player.AddCard(gameDeck.Deal());
+                //}
             }
         }
         /// <summary>
@@ -155,7 +159,7 @@ namespace HeartsCardGame
         /// fit to be played (a valid card as per the rules) and set the trick accordingly. If the card is found to not be 
         /// valid, (suit not broken yet) it will simply return to the last player and allow them to make another selecton.
         /// </summary>
-        public void PlayTrick()
+        private void PlayTrick()
         {
             currentTrick = new List<Card>();
             foreach (Player player in players)
@@ -169,10 +173,17 @@ namespace HeartsCardGame
             DetermineTrickWinner();
         }
 
+        /// <summary>
+        /// This function will find the winner given the current trick and the cards submitted to the trick.
+        /// This function will also distribute the points accordingly as well as display a message to the 
+        /// bottom of the playing field.
+        /// </summary>
         private void DetermineTrickWinner()
         {
+            // Setting the variable for the leading suit and the temp winning card.
             string winningSuit = leadingSuit;
-            Card winningCard = currentTrick[0]; // Setting the winning card to the trick card to begin.
+            Card winningCard = currentTrick[0]; 
+            // Setting a winning player to null to be searched for and set later.
             Player winningPlayer = null;
             foreach (Card card in currentTrick)
             {
@@ -180,13 +191,68 @@ namespace HeartsCardGame
                 if (card.Suit == winningSuit && card.Value > winningCard.Value)
                 {
                     winningCard = card;
-                    winningPlayer = players.Find(player => player.PlayerHand.Contains(card));
                 }
             }
+            winningPlayer = players.Find(player => player.PlayerHand.Contains(winningCard));
             // Set a message at the bottom of the page and distribute points to the winner.
             leadingSuit = null;
         }
+
+        /// <summary>
+        /// This function will take the card that the player or AI selects and run it against some tests
+        /// to ensure that it is in valid play. These tests will be to test if the hearts have been broken
+        /// as well as a test that checks if the players hand contains any cards of the selected trick.
+        /// </summary>
+        /// <param name="selectedCard"></param>
+        /// /// <param name="currentPlayer"></param>
+        /// <returns> Results of card validation. </returns>
+        private bool validatePlayerSelection(Card selectedCard, Player currentPlayer)
+        {
+            // First, check if a leading suit has been selected, if not, it must be the first card.
+            if (leadingSuit == null)
+            {
+                // If the player selects a heart right off the bat, but the hearts are not broken, the selection is invalid.
+                if (selectedCard.Suit == "Hearts" && !heartsBroken)
+                {
+                    // display message.
+                    return false;
+                }
+                // Otherwise, it is not a heart or the hearts are broken, it is valid.
+                else
+                {
+                    // Display message.
+                    return true;
+                }
+            }
+            // If the user selects a card that is not of the leading suit, and the hearts are not broken.
+            if (!heartsBroken && selectedCard.Suit != leadingSuit)
+            {
+                // Check if the player has a valid card in their hand, if they do, reject their selection.
+                if(currentPlayer.PlayerHand.Any(card => card.Suit == leadingSuit))
+                    {
+                        // Display message.
+                        return false;
+                    }
+                // Else, according to the rules of hearts, their selection is valid as they cannot play a card of the leading suit.
+                else
+                {
+                    // Check if the selected card is a heart, if it is, the hearts are now broken.
+                    if(selectedCard.Suit == "Hearts")
+                    {
+                        heartsBroken = true;
+                    }
+                    // Display message
+                    return true;
+                } 
+            }
+            // Otherwise, Either the hearts are broken or the card is of the leading suit, therefore it is valid.
+            else
+            {
+                // Display Message.
+                return true;
+            }
+        }
+        #endregion
     }
 }
 
-#endregion
