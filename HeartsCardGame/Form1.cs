@@ -186,11 +186,12 @@ namespace HeartsCardGame
             {
                 if (player is HumanPlayer)
                 {   
-                    card = player.PlayCard(currentTrick);
+                    
+                    card = player.PlayCard(currentTrick, heartsBroken);
                 }
                 else
                 {
-                    card = player.PlayCard(currentTrick);
+                    card = player.PlayCard(currentTrick, heartsBroken);
                 }
 
                 player.RemoveCard(card);
