@@ -180,14 +180,28 @@ namespace HeartsCardGame
         /// </summary>
         private void PlayTrick()
         {
+            Card card;
             currentTrick = new List<Card>();
             foreach (Player player in players)
             {
-                Card card = player.PlayerHand[0]; // Simple strategy: always play the first card in hand
+                if (player is HumanPlayer)
+                {   
+                    card = player.PlayCard(currentTrick);
+                }
+                else
+                {
+                    card = player.PlayCard(currentTrick);
+                }
+
                 player.RemoveCard(card);
                 currentTrick.Add(card);
                 if (leadingSuit == null)
                     leadingSuit = card.Suit;
+                // Check if the selected card is a heart, if it is, the hearts are now broken.
+                if (card.Suit == "Hearts")
+                {
+                    heartsBroken = true;
+                }
             }
             DetermineTrickWinner();
         }
@@ -214,6 +228,7 @@ namespace HeartsCardGame
             }
             winningPlayer = players.Find(player => player.PlayerHand.Contains(winningCard));
             // Set a message at the bottom of the page and distribute points to the winner.
+
             leadingSuit = null;
         }
         #endregion

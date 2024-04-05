@@ -1,67 +1,99 @@
 ﻿// Names: Jakob Olive, Troy Mouton
 // Start Date: 2024-04-03
 // File Desc: This 
+#region Usings
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
-
+#endregion
 namespace HeartsCardGame
 {
     internal class HumanPlayer : Player
     {
-        public HumanPlayer(string newPlayerName) : base(newPlayerName)
+        #region Variables
+        private Card cardInPlay = null;
+        #endregion
+        #region Constructor
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newPlayerName"></param>
+        /// <param name="cardInPlay"></param>
+        public HumanPlayer(string newPlayerName, Card cardInPlay) : base(newPlayerName)
         {
+            this.cardInPlay = cardInPlay;
         }
-
-        public override Card PlayCard(List<Card> currentRound)
+        #endregion
+        #region Getters & Setters
+        /// <summary>
+        /// This function is a basic getter and setter for the HumanPlayer's cardInPlay variable.
+        /// </summary>
+        protected internal Card CardInPlay
         {
-            // First, check if a leading suit has been selected, if not, it must be the first card.
-            if (leadingSuit == null)
+            get { return cardInPlay; }
+            set { cardInPlay = value; }
+        }
+        #endregion
+        #region Functions
+        public override Card PlayCard(List<Card> currentRound, bool heartsBroken)
+        {
+            // If this is the first play of the round, player can lead with any card.
+            if (currentRound.Count == 0)
             {
-                // If the player selects a heart right off the bat, but the hearts are not broken, the selection is invalid.
-                if (selectedCard.Suit == "Hearts" && !heartsBroken)
-                {
-                    // display message.
-                    return false;
-                }
-                // Otherwise, it is not a heart or the hearts are broken, it is valid.
-                else
-                {
-                    // Display message.
-                    return true;
-                }
+                // Implement logic to let the human player choose a card to lead
+                // For example, enable card buttons for the player to click
+                // Return the selected card
+                WaitForPlayerInput(); // Wait for player to click a card button
+                return selectedCard; // Return the card clicked by the player
             }
-            // If the user selects a card that is not of the leading suit, and the hearts are not broken.
-            if (!heartsBroken && selectedCard.Suit != leadingSuit)
-            {
-                // Check if the player has a valid card in their hand, if they do, reject their selection.
-                if (currentPlayer.PlayerHand.Any(card => card.Suit == leadingSuit))
-                {
-                    // Display message.
-                    return false;
-                }
-                // Else, according to the rules of hearts, their selection is valid as they cannot play a card of the leading suit.
-                else
-                {
-                    // Check if the selected card is a heart, if it is, the hearts are now broken.
-                    if (selectedCard.Suit == "Hearts")
-                    {
-                        heartsBroken = true;
-                    }
-                    // Display message
-                    return true;
-                }
-            }
-            // Otherwise, Either the hearts are broken or the card is of the leading suit, therefore it is valid.
             else
             {
-                // Display Message.
-                return true;
+                // Otherwise, play a card following the suit led, if possible.
+                string leadingSuit = currentRound[0].Suit;
+                var playableCards = GetPlayableCards(leadingSuit);
+
+                // If no cards of the led suit are available, play a random card.
+                if (playableCards.Count == 0)
+                {
+                    // Implement logic to select a random card from the player's hand
+                    return GetRandomCard();
+                }
+                else
+                {
+                    // Otherwise, let the user select a card of the leading suit to play
+                    // Display only the playable card buttons
+                    DisplayPlayableCardButtons(playableCards);
+                    WaitForPlayerInput(); // Wait for player to click a card button
+                    return selectedCard; // Return the card clicked by the player
+                }
             }
+        }
+
+        // Method to enable card buttons for the player to click
+        private void DisplayPlayableCardButtons(List<Card> playableCards)
+        {
+            // Enable only the buttons corresponding to playable cards
+        }
+
+        // Method to wait for player input (i.e., clicking a card button)
+        private void WaitForPlayerInput()
+        {
+            // Implement logic to wait for player to click a card button
+            // When a card button is clicked, update the 'selectedCard' variable
+        }
+
+        // Example variable to hold the selected card
+        private Card selectedCard;
+
+        // Method to set the selected card (to be called when a card button is clicked)
+        private void SetSelectedCard(Card card)
+        {
+            selectedCard = card;
         }
 
         ///// <summary>
-        ///// Redo to accomodate.
+        ///// Redo to accommodate.
         ///// </summary>
         //private void DisplayHand()
         //{
@@ -72,4 +104,5 @@ namespace HeartsCardGame
         //    Console.WriteLine();
         //}
     }
+    #endregion
 }

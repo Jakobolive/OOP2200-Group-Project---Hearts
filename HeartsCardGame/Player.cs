@@ -105,8 +105,9 @@ namespace HeartsCardGame
         /// as well as the AIPlayer.cs file.
         /// </summary>
         /// <param name="currentRound"></param>
+        /// <param name="heartsBroken"></param>
         /// <returns></returns>
-        public abstract Card PlayCard(List<Card> currentRound);
+        public abstract Card PlayCard(List<Card> currentRound, bool heartsBroken);
         #endregion
     }
 }
