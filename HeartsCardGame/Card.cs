@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 #endregion
 
 namespace HeartsCardGame
@@ -87,7 +88,7 @@ namespace HeartsCardGame
         }
         #endregion
 
-        #region Method
+        #region Methods
         /// <summary>
         /// This function will override the default ToString() method, this will allow the method to proform better for 
         /// our purpose of displaying a card and its information.
@@ -97,10 +98,39 @@ namespace HeartsCardGame
         {
             // Define the new cardString.
             string cardString;
+            String cardValue;
+            switch (Value) 
+            {
+                case 11:
+                    cardValue = "Jack";
+                    break;
+                case 12:
+                    cardValue = "Queen";
+                    break;
+                case 13:
+                    cardValue = "King";
+                    break;
+                case 14:
+                    cardValue = "Ace";
+                    break;
+                default:
+                    cardValue = Value.ToString();
+                    break;
+            }
             // Setting the value to the new card string to show the "value of card" and returning the string.
-            cardString = Value + " of " + Suit;
+            cardString = cardValue + " of " + Suit;
             // Returning the string.
             return cardString;
+        }
+        /// <summary>
+        /// This function takes the variables of the card and constructs an ID string to be used for the name
+        /// of a button that will be dynamically created for the card, if the human player receives it.
+        /// </summary>
+        /// <returns> Example: Spades12Button for the Queen of Spades. </returns>
+        public String NameButton()
+        {
+            String buttonName = Suit + Value.ToString() + "Button";
+            return buttonName;
         }
         #endregion
     }

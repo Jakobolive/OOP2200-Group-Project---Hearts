@@ -18,7 +18,7 @@ namespace HeartsCardGame
     public partial class HeartsGame : Form
     {
         #region Variables
-        private Deck gameDeck;
+        private Deck gameDeck = new Deck();
         private List<Player> players;
         private int currentPlayerIndex;
         private List<Card> currentTrick;
@@ -32,6 +32,7 @@ namespace HeartsCardGame
            InitializeComponent();
            // ApplyTheme();
            SetDefaults();
+           GameSetup();
         }
         #endregion
         #region Button Functions
@@ -82,21 +83,7 @@ namespace HeartsCardGame
         /// </summary>
         private void SetDefaults()
         {
-            MaxScoreTextBox.Text = string.Empty;
-            NumOfPlayerComboBox.Text = string.Empty;
-            HandNumTextBox.Text = string.Empty;
-            TrickNumTextBox.Text = string.Empty;
-            textBox4.Text = string.Empty;
-            textBox5.Text = string.Empty;
-            textBox6.Text = string.Empty;
-            textBox7.Text = string.Empty;
-            textBox8.Text = string.Empty;
-            textBox9.Text = string.Empty;
-            textBox10.Text = string.Empty;
-            textBox11.Text = string.Empty;
-
-            YourHandListView.Items.Clear();
-            CurrentTrickListView.Items.Clear();
+        
         }
 
         ///// <summary>
@@ -124,21 +111,43 @@ namespace HeartsCardGame
         //            // Add more cases for additional themes
 
 
-        private void gameSetup()
+        private void GameSetup()
         {
+            gameDeck.BuildDeck();
             players = new List<Player>
             {
+                new HumanPlayer("You"),
                 new AIPlayer("AI Player 1"),
                 new AIPlayer("AI Player 2"),
-                new AIPlayer("AI Player 3"),
-                new HumanPlayer("You")
+                new AIPlayer("AI Player 3")
             };
 
             currentPlayerIndex = 0;
             currentTrick = new List<Card>();
 
             DealCards();
-            PlayTrick();
+            DisplayHand((HumanPlayer)players[0]);
+            //PlayTrick();
+        }
+
+        /// <summary>
+        /// Redo to accommodate.
+        /// </summary>
+        private void DisplayHand(HumanPlayer humanPlayer)
+        {
+            // Sort the player's hand by suit and then by value to be more like an actual card game.
+            var sortedHand = humanPlayer.PlayerHand.OrderBy(card => card.Suit).ThenBy(card => card.Value);
+            // A foreach loop that dynamically builds the card buttons as per the players hand.
+            foreach (Card card in sortedHand)
+            {
+                // Creating, adding text to, sizing, naming, attaching functionality, and placing the button.
+                Button button = new Button();
+                button.Text = card.ToString();
+                button.Size = new Size(75, 125); 
+                button.Name = card.NameButton(); 
+                // button.Click += (sender, e) => 
+                HandFlowLayoutPanel.Controls.Add(button);
+            }
         }
 
         /// <summary>
@@ -184,16 +193,16 @@ namespace HeartsCardGame
             currentTrick = new List<Card>();
             foreach (Player player in players)
             {
-                if (player is HumanPlayer)
-                {   
-                    
-                    card = player.PlayCard(currentTrick, heartsBroken);
-                }
-                else
-                {
-                    card = player.PlayCard(currentTrick, heartsBroken);
-                }
-
+                //if (player is HumanPlayer)
+                //{   
+                //    card = player.PlayCard(currentTrick, heartsBroken);
+                //}
+                //else
+                //{
+                //    card = player.PlayCard(currentTrick, heartsBroken);
+                //}
+                card = player.PlayCard(currentTrick, heartsBroken);
+                // Commit to the card transaction.
                 player.RemoveCard(card);
                 currentTrick.Add(card);
                 if (leadingSuit == null)

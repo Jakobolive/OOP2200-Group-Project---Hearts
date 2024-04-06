@@ -72,6 +72,7 @@
             this.ResetGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.HandFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.OptionsGroupBox.SuspendLayout();
             this.PlayerInfoGroupBox.SuspendLayout();
             this.GameInfoGroupBox.SuspendLayout();
@@ -477,7 +478,7 @@
             this.ExitToolStripMenuItem});
             this.GameMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.GameMenuStrip.Name = "GameMenuStrip";
-            this.GameMenuStrip.Size = new System.Drawing.Size(800, 28);
+            this.GameMenuStrip.Size = new System.Drawing.Size(1454, 28);
             this.GameMenuStrip.TabIndex = 22;
             this.GameMenuStrip.Text = "CardsMenuStrip";
             // 
@@ -505,11 +506,19 @@
             this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.ExitToolStripMenuItem.Text = "Exit";
             // 
+            // HandFlowLayoutPanel
+            // 
+            this.HandFlowLayoutPanel.Location = new System.Drawing.Point(21, 438);
+            this.HandFlowLayoutPanel.Name = "HandFlowLayoutPanel";
+            this.HandFlowLayoutPanel.Size = new System.Drawing.Size(1412, 332);
+            this.HandFlowLayoutPanel.TabIndex = 23;
+            // 
             // HeartsGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1454, 782);
+            this.Controls.Add(this.HandFlowLayoutPanel);
             this.Controls.Add(this.OptionsGroupBox);
             this.Controls.Add(this.PlayerInfoGroupBox);
             this.Controls.Add(this.GameInfoGroupBox);
@@ -581,6 +590,7 @@
         private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
         private System.Windows.Forms.Button StartGameButton;
         private System.Windows.Forms.ToolStripMenuItem StartGameToolStripMenuItem;
+        private System.Windows.Forms.FlowLayoutPanel HandFlowLayoutPanel;
     }
 }
 

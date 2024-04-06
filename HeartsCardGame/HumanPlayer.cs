@@ -4,7 +4,9 @@
 #region Usings
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 #endregion
 namespace HeartsCardGame
@@ -38,32 +40,134 @@ namespace HeartsCardGame
         #region Functions
         public override Card PlayCard(List<Card> currentTrick, bool heartsBroken)
         {
-            
+            // Local variables that will be used for validation.
+            bool hearts;
+            var nonHeartCards = playerHand.Where(card => card.Suit != "Hearts").ToList();
+            // If this is the first play of the round, player can lead with any card.
+            if (currentTrick.Count == 0)
+            {
+                // Maybe this is the first trick of the round, lets check for the 2 of Clubs.
+                Card twoOfClubs = playerHand.Find(card => card.Value == 2 && card.Suit == "Clubs");
+                // If the two of clubs is found, we must force the player to play it.
+                if (twoOfClubs != null)
+                {
+                    ForceTwoOfClubs(playerHand);
+                    WaitForPlayerInput();
+                    return CardInPlay;
+                }
+                // If, the game trick is starting, but hearts are not broken.
+                else if (!heartsBroken || nonHeartCards.Count > 0)
+                {
+                    // Setting, validating, and waiting for selection when the player cannot play hearts.
+                    hearts = false;
+                    ValidateCards(playerHand, hearts);
+                    WaitForPlayerInput();
+                    return cardInPlay;
+                }
+                // Else, it is further along in the game and it is in free for all.
+                else
+                {
+                    // Setting, validating, and waiting of selection when the player can play any card.
+                    hearts = true;
+                    ValidateCards(playerHand, hearts);
+                    WaitForPlayerInput();
+                    return cardInPlay;
+                }
+            }
+            else
+            {
+                // Otherwise, play a card following the suit, if possible.
+                string leadingSuit = currentTrick[0].Suit;
+                List <Card> matchingSuits = playerHand.Where(card => card.Suit == leadingSuit).ToList();
+                // If no cards of the leading suit are available, play a random card.
+                if (matchingSuits.Count == 0)
+                {
+                    // If, hearts have not been broken and there is atleast 1 card that is not a heart.
+                    if (!heartsBroken || nonHeartCards.Count > 0)
+                    {
+                        // Setting, validating, and waiting for selection when the player cannot play hearts.
+                        hearts = false;
+                        ValidateCards(playerHand, hearts);
+                        WaitForPlayerInput();
+                        return cardInPlay;
+                    }
+                    // Else, hearts and valid or can be broken.
+                    else
+                    {
+                        // Setting, validating, and waiting for selection when the player can play any card.
+                        hearts = true;
+                        ValidateCards(playerHand, hearts);
+                        WaitForPlayerInput();
+                        return cardInPlay;
+                    }
+                }
+                // Else, the player can play according to the leading suit.
+                else
+                {
+                    // Setting, validating, and waiting for selection when the player has cards of the same suit.
+                    ValidateCards(playerHand, leadingSuit);
+                    WaitForPlayerInput(); 
+                    return cardInPlay; 
+                }
+            }
         }
 
-        private void ValidateCards(List<Card> currentTrick)
+        // Method to wait for player input (i.e., clicking a card button)
+        private void WaitForPlayerInput()
         {
-            
+            // Implement logic to wait for player to click a card button
+            // When a card button is clicked, update the 'selectedCard' variable
+        }
+
+        /// <summary>
+        /// This function will format a list of cards that are within the platers hand that are the same suit as 
+        /// the suit string provided. 
+        /// </summary>
+        /// <param name="hand">The hand the player currently possesses.</param>
+        /// <param name="suit">The string value of the card suit.</param>
+        private List <Card> ValidateCards(List<Card> hand, string suit)
+        {
+            // This will return a list of the cards that contain the same string suit value as passed to the method.
+            return hand.Where(card => card.Suit == suit).ToList();
+        }
+
+        /// <summary>
+        /// This function will format a list of cards that are within the players hand that are valid to play
+        /// according to the rules provided, such as hearts being a valid play or not. This is an overloaded 
+        /// version of the above ValidateCards() function that will format a broader list when the user has
+        /// no cards of the leading suit.
+        /// </summary>
+        /// <param name="currentTrick"> The current trick of the game. </param>
+        /// <param name="hearts"> The rules that are passed to validate the options. </param>
+        private List <Card> ValidateCards(List<Card> hand, bool hearts)
+        {
+            // If hearts is true, the entire hand is considered valid as the player is in free for all mode.
+            if (hearts)
+            {
+                return hand;
+            }
+            // Otherwise, the hearts have yet to be broken and the player can select any card BUT hearts.
+            else
+            {
+                return hand.Where(card => card.Suit != "Hearts").ToList();
+            }
+        }
+
+        /// <summary>
+        /// This is a simple function that will for the user to select the two of clubs, since every game of 
+        /// Hearts must begin will playing the two of clubs.
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <returns></returns>
+        private List <Card> ForceTwoOfClubs(List<Card> hand)
+        {
+            return hand.Where(card => card.Value == 2 && card.Suit == "Clubs").ToList();
         }
 
         private void EnableValidCards() 
         {
             
-        }      
-
-
-
-        ///// <summary>
-        ///// Redo to accommodate.
-        ///// </summary>
-        //private void DisplayHand()
-        //{
-        //    for (int i = 0; i < Hand.Count; i++)
-        //    {
-        //        Console.WriteLine($"{i}: {Hand[i].Value} of {Hand[i].Suit}");
-        //    }
-        //    Console.Writeine();
-        //}L
+        }
     }
     #endregion
 }

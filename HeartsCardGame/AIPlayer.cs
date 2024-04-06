@@ -33,6 +33,13 @@ namespace HeartsCardGame
         /// <returns></returns>
         public override Card PlayCard(List<Card> currentTrick, bool heartsBroken)
         {
+            // Maybe this is the first trick of the round, lets check for the 2 of Clubs.
+            Card twoOfClubs = playerHand.Find(card => card.Value == 2 && card.Suit == "Clubs");
+            // If the two of clubs is found, we must force the AI player to play it.
+            if (twoOfClubs != null)
+            {
+                return twoOfClubs;
+            }
             // If this is the first play of the round, AI player can lead with any card.
             if (currentTrick.Count == 0)
             {
