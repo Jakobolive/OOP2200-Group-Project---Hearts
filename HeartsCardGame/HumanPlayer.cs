@@ -38,6 +38,16 @@ namespace HeartsCardGame
         }
         #endregion
         #region Functions
+
+        /// <summary>
+        /// This function tests the players hand as well as the current trick of the game to help the Human
+        /// Player make a card selection. Several tests will be preformed, such as hearts validity, suit matching
+        /// or randoms. According to the tests(if statement) results, a list of valid cards to play will be created 
+        /// and used to activate or deactivate the cards(buttons) within the game play area.
+        /// </summary>
+        /// <param name="currentTrick"></param>
+        /// <param name="heartsBroken"></param>
+        /// <returns></returns>
         public override Card PlayCard(List<Card> currentTrick, bool heartsBroken)
         {
             // Local variables that will be used for validation.
@@ -112,13 +122,6 @@ namespace HeartsCardGame
             }
         }
 
-        // Method to wait for player input (i.e., clicking a card button)
-        private void WaitForPlayerInput()
-        {
-            // Implement logic to wait for player to click a card button
-            // When a card button is clicked, update the 'selectedCard' variable
-        }
-
         /// <summary>
         /// This function will format a list of cards that are within the platers hand that are the same suit as 
         /// the suit string provided. 
@@ -164,9 +167,32 @@ namespace HeartsCardGame
             return hand.Where(card => card.Value == 2 && card.Suit == "Clubs").ToList();
         }
 
-        private void EnableValidCards() 
+
+        public void WaitForPlayerInput()
         {
-            
+
+        }
+
+        public void DisableCards(List <Button> cardButtons)
+        {
+            foreach (var button in cardButtons)
+            {
+                button.Enabled = false;
+            }
+        }
+
+        private void EnableCards(List <Button> cardButtons, List<Card> validHand) 
+        {
+            for (var i = 0; i < validHand.Count; i++)
+            {
+                foreach (var button in cardButtons)
+                {
+                    if (button.Name == validHand[i].NameButton()) 
+                    {
+                        button.Enabled = true;
+                    }
+                }
+            }
         }
     }
     #endregion

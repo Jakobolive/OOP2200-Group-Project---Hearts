@@ -27,7 +27,10 @@ namespace HeartsCardGame
         #endregion
         #region Functions
         /// <summary>
-        /// 
+        /// This function provides a sort of validation and theory to the AI Players within the game. This function
+        /// is the guide for how the AI decides upon, and makes valid choices regarding the cards they can play.
+        /// The players hand will be manipulated, finding both like suits and heart cards to assign validity
+        /// to the AI Players selection, and then call a function to return a valid card accordingly.
         /// </summary>
         /// <param name="currentTrick"></param>
         /// <returns></returns>
@@ -35,15 +38,18 @@ namespace HeartsCardGame
         {
             // Maybe this is the first trick of the round, lets check for the 2 of Clubs.
             Card twoOfClubs = playerHand.Find(card => card.Value == 2 && card.Suit == "Clubs");
-            // If the two of clubs is found, we must force the AI player to play it.
-            if (twoOfClubs != null)
-            {
-                return twoOfClubs;
-            }
             // If this is the first play of the round, AI player can lead with any card.
             if (currentTrick.Count == 0)
             {
-                return LeadCard();
+                // If the two of clubs is found, we must force the AI player to play it.
+                if (twoOfClubs != null)
+                {
+                    return twoOfClubs;
+                }
+                else 
+                {
+                    return LeadCard();
+                }
             }
             else
             {
@@ -54,11 +60,13 @@ namespace HeartsCardGame
                 // If no cards of the led suit are available, play a random card.
                 if (playableCards.Count == 0)
                 {
+                    // Check if hearts are invalid to play at this time.
                     var nonHeartCards = playerHand.Where(card => card.Suit != "Hearts").ToList();
                     if (!heartsBroken || nonHeartCards.Count > 0)
                     {
                         return RandomCardWOHearts();
                     }
+                    // Otherwise, Hearts can be played.
                     else 
                     {
                         return RandomCard();
@@ -73,7 +81,9 @@ namespace HeartsCardGame
         }
 
         /// <summary>
-        /// 
+        /// This function will assist the AI Player in picking a lead card. The function will first look if the 
+        /// players hand contains anything other than hearts, as it is not wise to open with a losing card. If the
+        /// player has no choice but to start with a heart, it will selected the card of the lowest value.
         /// </summary>
         /// <returns></returns>
         private Card LeadCard()
@@ -92,7 +102,9 @@ namespace HeartsCardGame
         }
 
         /// <summary>
-        /// 
+        /// This function will create a list of playable cards for the AI to selection from. This function
+        /// employs different checks to test if a list can be made of the matching suit, if this fails, the AI
+        /// will try to do anything to pervent itself from playing a heart card, if it can be avoided.
         /// </summary>
         /// <param name="suit"></param>
         /// <returns></returns>
@@ -119,7 +131,7 @@ namespace HeartsCardGame
         }
 
         /// <summary>
-        /// 
+        /// This function simply selects a random card from the players hand, hearts included.
         /// </summary>
         /// <returns></returns>
         private Card RandomCard()
@@ -129,7 +141,7 @@ namespace HeartsCardGame
         }
 
         /// <summary>
-        /// 
+        /// This function selects a random card from a list of the entire players hand, excluding the hearts.
         /// </summary>
         /// <returns></returns>
         private Card RandomCardWOHearts()

@@ -20,6 +20,7 @@ namespace HeartsCardGame
         #region Variables
         private Deck gameDeck = new Deck();
         private List<Player> players;
+        private List<Button> CardButtons;
         private int currentPlayerIndex;
         private List<Card> currentTrick;
         private string leadingSuit;
@@ -131,7 +132,9 @@ namespace HeartsCardGame
         }
 
         /// <summary>
-        /// Redo to accommodate.
+        /// This method will first sort the players cards provided by suit and value and then enter a foreach loop
+        /// to create the buttons on the page. The loop creates the buttons, manipulated properties of the button, as 
+        /// well as adds it to a list of buttons for later use.
         /// </summary>
         private void DisplayHand(HumanPlayer humanPlayer)
         {
@@ -147,6 +150,8 @@ namespace HeartsCardGame
                 button.Name = card.NameButton(); 
                 // button.Click += (sender, e) => 
                 HandFlowLayoutPanel.Controls.Add(button);
+                // Adding the new button to the list of buttons for easy access and manipulation.
+                CardButtons.Add(button);
             }
         }
 
@@ -160,7 +165,7 @@ namespace HeartsCardGame
         {
             foreach (Player player in players)
             {
-                // This could work given that we add a bool variable for twoPlayerMode.
+                // If the player wishes to only play against 1 AI Player.
                 if (twoPlayerMode == true)
                 {
                     for (int I = 0; I < 26; I++)
@@ -168,6 +173,7 @@ namespace HeartsCardGame
                         player.AddCard(gameDeck.Deal());
                     }
                 }
+                // Otherwise, the player wishes to play against 3 AI Players and it is a normal game.
                 else
                 {
                     for (int I = 0; I < 13; I++)
@@ -175,11 +181,7 @@ namespace HeartsCardGame
                         player.AddCard(gameDeck.Deal());
                     }
                 }
-                //// Change later to suit player functionality due to our 2 or 4 player option.
-                //for (int i = 0; i < 13; i++)
-                //{
-                //    player.AddCard(gameDeck.Deal());
-                //}
+                
             }
         }
         /// <summary>
@@ -193,14 +195,6 @@ namespace HeartsCardGame
             currentTrick = new List<Card>();
             foreach (Player player in players)
             {
-                //if (player is HumanPlayer)
-                //{   
-                //    card = player.PlayCard(currentTrick, heartsBroken);
-                //}
-                //else
-                //{
-                //    card = player.PlayCard(currentTrick, heartsBroken);
-                //}
                 card = player.PlayCard(currentTrick, heartsBroken);
                 // Commit to the card transaction.
                 player.RemoveCard(card);
@@ -238,7 +232,7 @@ namespace HeartsCardGame
             }
             winningPlayer = players.Find(player => player.PlayerHand.Contains(winningCard));
             // Set a message at the bottom of the page and distribute points to the winner.
-
+            
             leadingSuit = null;
         }
         #endregion
