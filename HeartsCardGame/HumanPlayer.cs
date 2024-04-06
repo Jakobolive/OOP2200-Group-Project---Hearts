@@ -40,7 +40,20 @@ namespace HeartsCardGame
         #region Functions
 
         /// <summary>
-        /// This function tests the players hand as well as the current trick of the game to help the Human
+        /// This method will get overridden with the below method, because we must pass the list of buttons
+        /// to the function to be able to activate the correct and valid cards.
+        /// </summary>
+        /// <param name="currentRound"></param>
+        /// <param name="heartsBroken"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override Card PlayCard(List<Card> currentRound, bool heartsBroken)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// This function is an overload of the above overridden function from the Player.cs file.
+        /// The function tests the players hand as well as the current trick of the game to help the Human
         /// Player make a card selection. Several tests will be preformed, such as hearts validity, suit matching
         /// or randoms. According to the tests(if statement) results, a list of valid cards to play will be created 
         /// and used to activate or deactivate the cards(buttons) within the game play area.
@@ -48,7 +61,7 @@ namespace HeartsCardGame
         /// <param name="currentTrick"></param>
         /// <param name="heartsBroken"></param>
         /// <returns></returns>
-        public override Card PlayCard(List<Card> currentTrick, bool heartsBroken)
+        public Card PlayCard(List <Button> cardButtons, List<Card> currentTrick, bool heartsBroken)
         {
             // Local variables that will be used for validation.
             bool hearts;
@@ -115,7 +128,7 @@ namespace HeartsCardGame
                 else
                 {
                     // Setting, validating, and waiting for selection when the player has cards of the same suit.
-                    ValidateCards(playerHand, leadingSuit);
+                    EnableCards(cardButtons,ValidateCards(playerHand, leadingSuit));
                     WaitForPlayerInput(); 
                     return cardInPlay; 
                 }
