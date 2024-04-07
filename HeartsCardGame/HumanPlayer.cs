@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 #endregion
@@ -13,8 +14,10 @@ namespace HeartsCardGame
 {
     internal class HumanPlayer : Player
     {
-        #region Variables
+        #region Variables & Events
         private Card cardInPlay = null;
+        // Define an event for card selection
+        public event Func<Card, Task> CardSelected;
         #endregion
         #region Constructor
         /// <summary>
@@ -61,11 +64,13 @@ namespace HeartsCardGame
         /// <param name="currentTrick"></param>
         /// <param name="heartsBroken"></param>
         /// <returns></returns>
-        public Card PlayCard(List <Button> cardButtons, List<Card> currentTrick, bool heartsBroken)
+        public async Task<Card> PlayCard(List <Button> cardButtons, List<Card> currentTrick, bool heartsBroken)
         {
             // Local variables that will be used for validation.
             bool hearts;
             var nonHeartCards = playerHand.Where(card => card.Suit != "Hearts").ToList();
+            // Reset the card in play.
+            cardInPlay = null;
             // If this is the first play of the round, player can lead with any card.
             if (currentTrick.Count == 0)
             {
@@ -74,17 +79,17 @@ namespace HeartsCardGame
                 // If the two of clubs is found, we must force the player to play it.
                 if (twoOfClubs != null)
                 {
-                    ForceTwoOfClubs(playerHand);
-                    WaitForPlayerInput();
-                    return CardInPlay;
+                    EnableCards(cardButtons, ForceTwoOfClubs(playerHand));
+                    await Task.Run(() => WaitForPlayerInput());
+                    return cardInPlay;
                 }
                 // If, the game trick is starting, but hearts are not broken.
                 else if (!heartsBroken || nonHeartCards.Count > 0)
                 {
                     // Setting, validating, and waiting for selection when the player cannot play hearts.
                     hearts = false;
-                    ValidateCards(playerHand, hearts);
-                    WaitForPlayerInput();
+                    EnableCards(cardButtons, ValidateCards(playerHand, hearts));
+                    await Task.Run(() => WaitForPlayerInput());
                     return cardInPlay;
                 }
                 // Else, it is further along in the game and it is in free for all.
@@ -92,8 +97,8 @@ namespace HeartsCardGame
                 {
                     // Setting, validating, and waiting of selection when the player can play any card.
                     hearts = true;
-                    ValidateCards(playerHand, hearts);
-                    WaitForPlayerInput();
+                    EnableCards(cardButtons, ValidateCards(playerHand, hearts));
+                    await Task.Run(() => WaitForPlayerInput());
                     return cardInPlay;
                 }
             }
@@ -110,8 +115,8 @@ namespace HeartsCardGame
                     {
                         // Setting, validating, and waiting for selection when the player cannot play hearts.
                         hearts = false;
-                        ValidateCards(playerHand, hearts);
-                        WaitForPlayerInput();
+                        EnableCards(cardButtons, ValidateCards(playerHand, hearts));
+                        await Task.Run(() => WaitForPlayerInput());
                         return cardInPlay;
                     }
                     // Else, hearts and valid or can be broken.
@@ -119,8 +124,8 @@ namespace HeartsCardGame
                     {
                         // Setting, validating, and waiting for selection when the player can play any card.
                         hearts = true;
-                        ValidateCards(playerHand, hearts);
-                        WaitForPlayerInput();
+                        EnableCards(cardButtons, ValidateCards(playerHand, hearts));
+                        await Task.Run(() => WaitForPlayerInput());
                         return cardInPlay;
                     }
                 }
@@ -129,7 +134,7 @@ namespace HeartsCardGame
                 {
                     // Setting, validating, and waiting for selection when the player has cards of the same suit.
                     EnableCards(cardButtons,ValidateCards(playerHand, leadingSuit));
-                    WaitForPlayerInput(); 
+                    await Task.Run(() => WaitForPlayerInput()); 
                     return cardInPlay; 
                 }
             }
@@ -177,13 +182,33 @@ namespace HeartsCardGame
         /// <returns></returns>
         private List <Card> ForceTwoOfClubs(List<Card> hand)
         {
+            // Return a list that only contains the two of clubs.
             return hand.Where(card => card.Value == 2 && card.Suit == "Clubs").ToList();
         }
 
 
         public void WaitForPlayerInput()
         {
+            // Define an asynchronous event handler for card selection
+            async Task CardSelectionHandler(Card selectedCard)
+            {
+                cardInPlay = selectedCard;
+                // Optionally, perform any additional logic here
+            }
 
+            // Subscribe to the CardSelected event with the async event handler
+            CardSelected += CardSelectionHandler;
+
+            // While the waiting for player input is true.
+            //while (true)
+            //{
+            //    // Check if the card in play has changed.
+            //    if (cardInPlay != null)
+            //    {
+            //        // If so, return the new card.
+            //       return cardInPlay;
+            //    }
+            //}
         }
 
         public void DisableCards(List <Button> cardButtons)

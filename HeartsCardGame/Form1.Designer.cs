@@ -87,6 +87,7 @@
             this.StartGameButton.TabIndex = 6;
             this.StartGameButton.Text = "Start Game";
             this.StartGameButton.UseVisualStyleBackColor = true;
+            this.StartGameButton.Click += new System.EventHandler(this.StartGameButton_Click);
             // 
             // ExitButton
             // 
@@ -96,6 +97,7 @@
             this.ExitButton.TabIndex = 35;
             this.ExitButton.Text = "Exit";
             this.ExitButton.UseVisualStyleBackColor = true;
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // RulesButton
             // 
@@ -105,6 +107,7 @@
             this.RulesButton.TabIndex = 34;
             this.RulesButton.Text = "Rules";
             this.RulesButton.UseVisualStyleBackColor = true;
+            this.RulesButton.Click += new System.EventHandler(this.RulesButton_Click);
             // 
             // ResetGameButton
             // 
@@ -114,6 +117,7 @@
             this.ResetGameButton.TabIndex = 33;
             this.ResetGameButton.Text = "Reset Game";
             this.ResetGameButton.UseVisualStyleBackColor = true;
+            this.ResetGameButton.Click += new System.EventHandler(this.ResetGameButton_Click);
             // 
             // PlayerInfoGroupBox
             // 
@@ -302,32 +306,32 @@
             this.ExitToolStripMenuItem});
             this.GameMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.GameMenuStrip.Name = "GameMenuStrip";
-            this.GameMenuStrip.Size = new System.Drawing.Size(1440, 30);
+            this.GameMenuStrip.Size = new System.Drawing.Size(1440, 28);
             this.GameMenuStrip.TabIndex = 22;
             this.GameMenuStrip.Text = "CardsMenuStrip";
             // 
             // StartGameToolStripMenuItem
             // 
             this.StartGameToolStripMenuItem.Name = "StartGameToolStripMenuItem";
-            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 26);
+            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
             this.StartGameToolStripMenuItem.Text = "Start Game";
             // 
             // ResetGameToolStripMenuItem
             // 
             this.ResetGameToolStripMenuItem.Name = "ResetGameToolStripMenuItem";
-            this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 26);
+            this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
             this.ResetGameToolStripMenuItem.Text = "Reset Game";
             // 
             // RulesToolStripMenuItem
             // 
             this.RulesToolStripMenuItem.Name = "RulesToolStripMenuItem";
-            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
+            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.RulesToolStripMenuItem.Text = "Rules";
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 26);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.ExitToolStripMenuItem.Text = "Exit";
             // 
             // HandFlowLayoutPanel

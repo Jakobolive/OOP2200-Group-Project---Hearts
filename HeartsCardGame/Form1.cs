@@ -22,7 +22,7 @@ namespace HeartsCardGame
         private List<Player> players;
         private List<Button> CardButtons = new List<Button>();
         private List<Button> trickList = new List<Button>();
-        private List<Card> currentTrick;
+        private List<Card> currentTrick = new List<Card>();
         private int winningPoints;
         private string leadingSuit;
         private bool twoPlayerMode;
@@ -202,6 +202,7 @@ namespace HeartsCardGame
                 // If the two of clubs is found, we will return the player.
                 if (twoOfClubs != null)
                 {
+                    Console.WriteLine("Lead Has Been Found");
                     return index;
                 }
             }
@@ -212,19 +213,21 @@ namespace HeartsCardGame
         /// <summary>
         /// This method will call other methods as well as manage its own theory to manage the gameplay and report winners.
         /// </summary>
-        private void CommenceGameplay()
+        private async void CommenceGameplay()
         {
             // First, find the player to start with.
             int startIndex = FindLead(players);
             int currentIndex = startIndex;
             // Boolean that will hold true only once a winner is found and the game is over.
             bool winnerFound = false;
+            Console.WriteLine("Entering While Loop");
             while (!winnerFound)
             {
                 // Iterate over the list starting from the currentIndex provided
                 for (int index = 0; index < players.Count; index++)
                 {
-                    PlayTrick();
+                    Console.WriteLine("Iterating");
+                    await PlayTrick();
                     // Increment currentIndex with modular arithmetic to loop back to the starting location
                     currentIndex = (currentIndex + 1) % players.Count;
                 }
@@ -243,17 +246,19 @@ namespace HeartsCardGame
         /// fit to be played (a valid card as per the rules) and set the trick accordingly. If the card is found to not be 
         /// valid, (suit not broken yet) it will simply return to the last player and allow them to make another selection.
         /// </summary>
-        private void PlayTrick()
+        private async Task PlayTrick()
         {
             // Initialize the card in hand.
             Card card;
             // Foreach loop that ensures every player in the game plays a card.
             foreach (Player player in players)
             {
-                card = PlayCard(player);
+                Console.WriteLine("Playing Trick");
+                card = await PlayCard(player);
                 // Commit to the card transaction.
                 player.RemoveCard(card);
                 currentTrick.Add(card);
+                ShowTrick(currentTrick);
                 // If the card is the first of the currentTrick, set the leading suit.
                 if (leadingSuit == null)
                     leadingSuit = card.Suit;
@@ -275,18 +280,22 @@ namespace HeartsCardGame
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        private Card PlayCard(Player player)
+        private async Task<Card> PlayCard(Player player)
         {
-            // If the player is of the Human Player class, cast them to a HumanPlayer and call the PlayCard() Method.
-            if (player is HumanPlayer)
+            // If the player is not of the Human Player class.
+            if (!(player is HumanPlayer))
             {
-                HumanPlayer humanPlayer = (HumanPlayer)player;
-                return humanPlayer.PlayCard(CardButtons, currentTrick, heartsBroken);
+                Console.WriteLine("AI Player Turn");
+                // Introduce a 5-second delay before proceeding.
+                await Task.Delay(3000);
+                return player.PlayCard(currentTrick, heartsBroken);
             }
-            // Otherwise, they must be an AI Player, no extra conversion is needed.
+            // Otherwise, they must be a Human Player, convert them to the proper object and continue.
             else
             {
-                return player.PlayCard(currentTrick, heartsBroken);
+                Console.WriteLine("Human Player Turn");
+                HumanPlayer humanPlayer = (HumanPlayer)player;
+                return humanPlayer.PlayCard(CardButtons, currentTrick, heartsBroken);
             }
         }
 
@@ -316,10 +325,35 @@ namespace HeartsCardGame
             }
             // Trick point distribution.
             winningPlayer = players.Find(player => player.PlayerHand.Contains(winningCard));
-            winningPlayer.PlayerPoints = winningPlayer.PlayerPoints + winningPoints;
+            winningPlayer.PlayerPoints += winningPlayer.PlayerPoints + winningPoints;
             // Set a message to announce the winner of the trick.
             MessageLabel.Text = winningPlayer.PlayerName + " Wins The Trick With A Total Of " + winningPoints + " Points!";
             leadingSuit = null;
+        }
+        #endregion
+        #region Button Functions
+
+        private void StartGameButton_Click(object sender, EventArgs e)
+        {
+            CommenceGameplay();
+        }
+
+
+        private void ResetGameButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void RulesButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+
         }
         #endregion
     }
