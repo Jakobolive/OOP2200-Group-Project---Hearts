@@ -306,32 +306,32 @@
             this.ExitToolStripMenuItem});
             this.GameMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.GameMenuStrip.Name = "GameMenuStrip";
-            this.GameMenuStrip.Size = new System.Drawing.Size(1440, 28);
+            this.GameMenuStrip.Size = new System.Drawing.Size(1440, 30);
             this.GameMenuStrip.TabIndex = 22;
             this.GameMenuStrip.Text = "CardsMenuStrip";
             // 
             // StartGameToolStripMenuItem
             // 
             this.StartGameToolStripMenuItem.Name = "StartGameToolStripMenuItem";
-            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
+            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 26);
             this.StartGameToolStripMenuItem.Text = "Start Game";
             // 
             // ResetGameToolStripMenuItem
             // 
             this.ResetGameToolStripMenuItem.Name = "ResetGameToolStripMenuItem";
-            this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
+            this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 26);
             this.ResetGameToolStripMenuItem.Text = "Reset Game";
             // 
             // RulesToolStripMenuItem
             // 
             this.RulesToolStripMenuItem.Name = "RulesToolStripMenuItem";
-            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
+            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
             this.RulesToolStripMenuItem.Text = "Rules";
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 26);
             this.ExitToolStripMenuItem.Text = "Exit";
             // 
             // HandFlowLayoutPanel
@@ -353,8 +353,9 @@
             this.MessageLabel.AutoSize = true;
             this.MessageLabel.Location = new System.Drawing.Point(265, 416);
             this.MessageLabel.Name = "MessageLabel";
-            this.MessageLabel.Size = new System.Drawing.Size(0, 16);
+            this.MessageLabel.Size = new System.Drawing.Size(383, 16);
             this.MessageLabel.TabIndex = 25;
+            this.MessageLabel.Text = "MESSAGET THAT WILL BE MOVED AND ADJUSTED LATER";
             // 
             // HeartsGame
             // 
