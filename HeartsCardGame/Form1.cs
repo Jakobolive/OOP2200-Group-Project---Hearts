@@ -131,8 +131,14 @@ namespace HeartsCardGame
         /// </summary>
         /// <param name="trick"></param>
         /// <returns></returns>
-        private List <Button> ShowTrick(List <Card> trick)
+        private void ShowTrick(List <Card> trick)
         {
+            // Execute this method on the UI thread
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => ShowTrick(trick)));
+                return;
+            }
             foreach (Card card in trick)
             {
                     // Creating, adding text to, sizing, naming, attaching functionality, and placing the button.
@@ -145,7 +151,7 @@ namespace HeartsCardGame
                     // Adding the button to a list so it can be deleted later.
                     trickList.Add(button);
             }
-            return trickList;
+            //return trickList;
         }
 
         /// <summary>
@@ -220,7 +226,7 @@ namespace HeartsCardGame
         /// <summary>
         /// This method will call other methods as well as manage its own theory to manage the gameplay and report winners.
         /// </summary>
-        private void CommenceGameplay()
+        private async void CommenceGameplay()
         {
             // First, find the player to start with.
             //int startIndex = FindLead(players);
@@ -228,17 +234,23 @@ namespace HeartsCardGame
             // Boolean that will hold true only once a winner is found and the game is over.
             bool winnerFound = false;
             Console.WriteLine("Entering While Loop");
-            while (!winnerFound)
+            await Task.Run(async () =>
             {
-                PlayTrick();
-                // End of match
-                foreach (Player player in players)
+                while (!winnerFound)
                 {
-                    if (player.PlayerPoints >= 100)
-                        // Do winner stuff here.
-                        winnerFound = true;
+                    await PlayTrick();
+                    // End of match
+                    foreach (Player player in players)
+                    {
+                        if (player.PlayerPoints >= 100)
+                        {
+                            // Do winner stuff here.
+                            winnerFound = true;
+                            break;
+                        }
+                    }
                 }
-            }
+            });
         }
 
         /// <summary>
@@ -246,7 +258,7 @@ namespace HeartsCardGame
         /// fit to be played (a valid card as per the rules) and set the trick accordingly. If the card is found to not be 
         /// valid, (suit not broken yet) it will simply return to the last player and allow them to make another selection.
         /// </summary>
-        private void PlayTrick()
+        private async Task PlayTrick()
         {
             // Initialize the card in hand.
             Card card;
@@ -256,7 +268,7 @@ namespace HeartsCardGame
             //    foreach (Player player in players)
             //{
                 Console.WriteLine("Playing Trick Number: " + index);
-                card = PlayCard(players[currentIndex]);
+                card = await PlayCard(players[currentIndex]);
                 // Commit to the card transaction.
                 players[currentIndex].RemoveCard(card);
                 currentTrick.Add(card);
@@ -284,16 +296,16 @@ namespace HeartsCardGame
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        private  Card PlayCard(Player player)
+        private async Task<Card> PlayCard(Player player)
         {
             // If the players name matches the users name, it must be the user.
             if (player.PlayerName == user.PlayerName)
             {
                 Console.WriteLine("Human Player Turn");
                 
-                user.PlayCard(CardButtons, currentTrick, heartsBroken);
+                user.PlayCard(this ,CardButtons, currentTrick, heartsBroken);
 
-                WaitForPlayerInput();
+                await WaitForPlayerInput();
 
                 return user.CardInPlay;
             }
@@ -301,16 +313,17 @@ namespace HeartsCardGame
             else
             {
                 Console.WriteLine("AI Player Turn");
+
                 return player.PlayCard(currentTrick, heartsBroken);
             }
         }
 
         private SemaphoreSlim semaphore = new SemaphoreSlim(0);
 
-        private void WaitForPlayerInput()
+        private async Task WaitForPlayerInput()
         {
             // Wait until the cardInPlay is set
-            semaphore.Wait(); 
+            await semaphore.WaitAsync(); 
         }
 
         private void SelectCard(Button button)

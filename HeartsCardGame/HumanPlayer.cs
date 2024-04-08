@@ -63,7 +63,7 @@ namespace HeartsCardGame
         /// <param name="currentTrick"></param>
         /// <param name="heartsBroken"></param>
         /// <returns></returns>
-        public Card PlayCard(List <Button> cardButtons, List<Card> currentTrick, bool heartsBroken)
+        public Card PlayCard(Control control, List <Button> cardButtons, List<Card> currentTrick, bool heartsBroken)
         {
             // Local variables that will be used for validation.
             bool hearts;
@@ -78,7 +78,7 @@ namespace HeartsCardGame
                 // If the two of clubs is found, we must force the player to play it.
                 if (twoOfClubs != null)
                 {
-                    EnableCards(cardButtons, ForceTwoOfClubs(playerHand));
+                    EnableCards(control, cardButtons, ForceTwoOfClubs(playerHand));
                     //cardInPlay = WaitForPlayerInput();
                     return cardInPlay;
                 }
@@ -87,7 +87,7 @@ namespace HeartsCardGame
                 {
                     // Setting, validating, and waiting for selection when the player cannot play hearts.
                     hearts = false;
-                    EnableCards(cardButtons, ValidateCards(playerHand, hearts));
+                    EnableCards(control, cardButtons, ValidateCards(playerHand, hearts));
                     //cardInPlay = WaitForPlayerInput();
                     return cardInPlay;
                 }
@@ -96,7 +96,7 @@ namespace HeartsCardGame
                 {
                     // Setting, validating, and waiting of selection when the player can play any card.
                     hearts = true;
-                    EnableCards(cardButtons, ValidateCards(playerHand, hearts));
+                    EnableCards(control, cardButtons, ValidateCards(playerHand, hearts));
                     //cardInPlay = WaitForPlayerInput();
                     return cardInPlay;
                 }
@@ -114,7 +114,7 @@ namespace HeartsCardGame
                     {
                         // Setting, validating, and waiting for selection when the player cannot play hearts.
                         hearts = false;
-                        EnableCards(cardButtons, ValidateCards(playerHand, hearts));
+                        EnableCards(control, cardButtons, ValidateCards(playerHand, hearts));
                         //cardInPlay = WaitForPlayerInput();
                         return cardInPlay;
                     }
@@ -123,7 +123,7 @@ namespace HeartsCardGame
                     {
                         // Setting, validating, and waiting for selection when the player can play any card.
                         hearts = true;
-                        EnableCards(cardButtons, ValidateCards(playerHand, hearts));
+                        EnableCards(control, cardButtons, ValidateCards(playerHand, hearts));
                         //cardInPlay = WaitForPlayerInput();
                         return cardInPlay;
                     }
@@ -132,7 +132,7 @@ namespace HeartsCardGame
                 else
                 {
                     // Setting, validating, and waiting for selection when the player has cards of the same suit.
-                    EnableCards(cardButtons,ValidateCards(playerHand, leadingSuit));
+                    EnableCards(control, cardButtons, ValidateCards(playerHand, leadingSuit));
                     //cardInPlay = WaitForPlayerInput(); 
                     return cardInPlay; 
                 }
@@ -217,8 +217,13 @@ namespace HeartsCardGame
         }
 
 
-        private void EnableCards(List <Button> cardButtons, List<Card> validHand) 
+        private void EnableCards(Control control, List <Button> cardButtons, List<Card> validHand) 
         {
+            if (control.InvokeRequired)
+            {
+                control.Invoke(new Action(() => EnableCards(control, cardButtons, validHand)));
+                return;
+            }
             for (var i = 0; i < validHand.Count; i++)
             {
                 foreach (var button in cardButtons)
