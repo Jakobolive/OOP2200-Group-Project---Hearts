@@ -66,10 +66,9 @@ namespace HeartsCardGame
         public Card PlayCard(Control control, List <Button> cardButtons, List<Card> currentTrick, bool heartsBroken)
         {
             // Local variables that will be used for validation.
-            bool hearts;
             var nonHeartCards = playerHand.Where(card => card.Suit != "Hearts").ToList();
-            // Reset the card in play.
-            //cardInPlay = null;
+            // Disable the buttons within the gameplay area.
+            DisableCards(control, cardButtons);
             // If this is the first play of the round, player can lead with any card.
             if (currentTrick.Count == 0)
             {
@@ -79,25 +78,20 @@ namespace HeartsCardGame
                 if (twoOfClubs != null)
                 {
                     EnableCards(control, cardButtons, ForceTwoOfClubs(playerHand));
-                    //cardInPlay = WaitForPlayerInput();
                     return cardInPlay;
                 }
                 // If, the game trick is starting, but hearts are not broken.
                 else if (!heartsBroken || nonHeartCards.Count > 0)
                 {
                     // Setting, validating, and waiting for selection when the player cannot play hearts.
-                    hearts = false;
-                    EnableCards(control, cardButtons, ValidateCards(playerHand, hearts));
-                    //cardInPlay = WaitForPlayerInput();
+                    EnableCards(control, cardButtons, ValidateCards(playerHand, heartsBroken));
                     return cardInPlay;
                 }
                 // Else, it is further along in the game and it is in free for all.
                 else
                 {
                     // Setting, validating, and waiting of selection when the player can play any card.
-                    hearts = true;
-                    EnableCards(control, cardButtons, ValidateCards(playerHand, hearts));
-                    //cardInPlay = WaitForPlayerInput();
+                    EnableCards(control, cardButtons, ValidateCards(playerHand, heartsBroken));
                     return cardInPlay;
                 }
             }
@@ -113,18 +107,14 @@ namespace HeartsCardGame
                     if (!heartsBroken || nonHeartCards.Count > 0)
                     {
                         // Setting, validating, and waiting for selection when the player cannot play hearts.
-                        hearts = false;
-                        EnableCards(control, cardButtons, ValidateCards(playerHand, hearts));
-                        //cardInPlay = WaitForPlayerInput();
+                        EnableCards(control, cardButtons, ValidateCards(playerHand, heartsBroken));
                         return cardInPlay;
                     }
                     // Else, hearts and valid or can be broken.
                     else
                     {
                         // Setting, validating, and waiting for selection when the player can play any card.
-                        hearts = true;
-                        EnableCards(control, cardButtons, ValidateCards(playerHand, hearts));
-                        //cardInPlay = WaitForPlayerInput();
+                        EnableCards(control, cardButtons, ValidateCards(playerHand, heartsBroken));
                         return cardInPlay;
                     }
                 }
@@ -132,8 +122,7 @@ namespace HeartsCardGame
                 else
                 {
                     // Setting, validating, and waiting for selection when the player has cards of the same suit.
-                    EnableCards(control, cardButtons, ValidateCards(playerHand, leadingSuit));
-                    //cardInPlay = WaitForPlayerInput(); 
+                    EnableCards(control, cardButtons, ValidateCards(playerHand, leadingSuit)); 
                     return cardInPlay; 
                 }
             }
@@ -185,38 +174,29 @@ namespace HeartsCardGame
             return hand.Where(card => card.Value == 2 && card.Suit == "Clubs").ToList();
         }
 
-        //public Card WaitForPlayerInput()
-        //{
-        //    cardInPlay = null;
-
-        //    // Wait until the cardInPlay is set
-        //    semaphore.Wait();
-
-        //    // Return the selected card
-        //    return cardInPlay;
-        //    cardInPlay = null;
-        //    // While the waiting for player input is true.
-        //    while (true)
-        //    {
-        //        // Check if the card in play has changed.
-        //        if (cardInPlay != null)
-        //        {
-        //            // If so, return the new card.
-        //            return cardInPlay;
-        //        }
-        //    }
-        //}
-
-
-        public void DisableCards(List <Button> cardButtons)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cardButtons"></param>
+        public void DisableCards(Control control, List <Button> cardButtons)
         {
+            if (control.InvokeRequired)
+            {
+                control.Invoke(new Action(() => DisableCards(control, cardButtons)));
+                return;
+            }
             foreach (var button in cardButtons)
             {
                 button.Enabled = false;
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="cardButtons"></param>
+        /// <param name="validHand"></param>
         private void EnableCards(Control control, List <Button> cardButtons, List<Card> validHand) 
         {
             if (control.InvokeRequired)

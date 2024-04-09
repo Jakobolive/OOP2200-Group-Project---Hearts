@@ -34,8 +34,6 @@ namespace HeartsCardGame
             // Values that represent the suits and values for a standard deck of playing cards.
             string[] standardSuits = { "Hearts", "Clubs", "Diamonds", "Spades" };
             int[] standardValues = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
-            // Additional variables for the point system.
-            bool danger;
             int points;
 
             // Foreach loop nested inside another that loops the suits and values to create the cards.
@@ -43,24 +41,19 @@ namespace HeartsCardGame
             {
                 foreach (var value in standardValues)
                 {
+                    // Initialize points to 0 by default.
+                    points = 0; 
                     // Validation to check if either the suit is Hearts, or if card is the Queen of Spades.
                     if (suit == "Hearts")
                     {
-                        danger = true;
                         points = 1;
                     }
-                    if (suit == "Spades" && value == 12)
+                    else if (suit == "Spades" && value == 12)
                     {
-                        danger = true;
                         points = 13;
                     }
-                    else
-                    {
-                        danger = false;
-                        points = 0;
-                    }
                     // Adding a new card(Calling Parameterized Constructor) to cardDeck.
-                    cardDeck.Add(new Card(suit, value, danger, points));
+                    cardDeck.Add(new Card(suit, value, points));
                 }
             }
             // Calling the shuffle method.

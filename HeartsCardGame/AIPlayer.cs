@@ -104,7 +104,7 @@ namespace HeartsCardGame
         /// <summary>
         /// This function will create a list of playable cards for the AI to selection from. This function
         /// employs different checks to test if a list can be made of the matching suit, if this fails, the AI
-        /// will try to do anything to pervent itself from playing a heart card, if it can be avoided.
+        /// will try to do anything to prevent itself from playing a heart card, if it can be avoided.
         /// </summary>
         /// <param name="suit"></param>
         /// <returns></returns>

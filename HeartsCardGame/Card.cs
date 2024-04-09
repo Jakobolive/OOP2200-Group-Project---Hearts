@@ -20,7 +20,6 @@ namespace HeartsCardGame
         // Define the string and int for cardSuit and cardValue.
         private string cardSuit;
         private int cardValue;
-        private bool dangerCard; // Meaning the card is either a heart or the queen of spades.
         private int pointValue; // set to 0 if it is a base card, 1 if it is in the heart suit, and 13? if it is the queen of spades.
         #endregion
         #region Constructors
@@ -40,12 +39,11 @@ namespace HeartsCardGame
         /// <param name="assignedValue"></param>
         /// <param name="dangerCardBool"></param>
         /// <param name="cardPointValue"></param>
-        public Card(string assignedSuit, int assignedValue, bool dangerCardBool, int cardPointValue)
+        public Card(string assignedSuit, int assignedValue, int cardPointValue)
         {
             // Assigning values.
             cardSuit = assignedSuit;
             cardValue = assignedValue;
-            dangerCard = dangerCardBool;
             pointValue = cardPointValue; 
         }
         #endregion
@@ -67,15 +65,6 @@ namespace HeartsCardGame
         {
             get { return cardValue; }
             set { cardValue = value; }
-        }
-
-        /// <summary>
-        /// This function is a basic getter and setter for the danger card variable.
-        /// </summary>
-        protected internal bool DangerCard
-        {
-            get { return dangerCard; }
-            set { dangerCard = value; }
         }
 
         /// <summary>

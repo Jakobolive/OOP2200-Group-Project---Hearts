@@ -19,6 +19,9 @@ namespace HeartsCardGame
     public partial class HeartsGame : Form
     {
         #region Variables
+        private SemaphoreSlim semaphore = new SemaphoreSlim(0);
+        private int trickCount = 0;
+        private int handCount = 0;
         private int currentIndex = 0;
         private Deck gameDeck = new Deck();
         private HumanPlayer user = new HumanPlayer("You");
@@ -28,7 +31,7 @@ namespace HeartsCardGame
         private List<Card> currentTrick = new List<Card>();
         private int winningPoints;
         private string leadingSuit;
-        private bool twoPlayerMode;
+        private bool twoPlayerMode = false;
         private bool heartsBroken = false;
         #endregion
         #region Initialize 
@@ -36,7 +39,6 @@ namespace HeartsCardGame
         {
            InitializeComponent();
            // ApplyTheme();
-           SetDefaults();
            GameSetup();
         }
         #endregion
@@ -46,7 +48,12 @@ namespace HeartsCardGame
         /// </summary>
         private void SetDefaults()
         {
-            // do later ig.
+            DeleteTrick(trickList);
+            DeleteTrick(CardButtons);
+            trickCount = 0;
+            handCount = 0;
+            currentIndex = 0;
+            GameSetup();
         }
 
         ///// <summary>
@@ -91,8 +98,12 @@ namespace HeartsCardGame
             // Update the GUI with the names.
             Player1Label.Text = players[0].PlayerName + ":";
             Player2Label.Text = players[1].PlayerName + ":";
-            Player3Label.Text = players[2].PlayerName + ":";
-            Player4Label.Text = players[3].PlayerName + ":";
+            // If it is not two player mode, we can add the third and fourth player.
+            if (!twoPlayerMode) 
+            {
+                Player3Label.Text = players[2].PlayerName + ":";
+                Player4Label.Text = players[3].PlayerName + ":";
+            }
             DealCards();
             DisplayHand(user);
             // First, find the player to start with.
@@ -108,6 +119,12 @@ namespace HeartsCardGame
         /// </summary>
         private void DisplayHand(HumanPlayer humanPlayer)
         {
+            // Execute this method on the UI thread.
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => DisplayHand(humanPlayer)));
+                return;
+            }
             // Sort the player's hand by suit and then by value to be more like an actual card game.
             var sortedHand = humanPlayer.PlayerHand.OrderBy(card => card.Suit).ThenBy(card => card.Value);
             // A foreach loop that dynamically builds the card buttons as per the players hand.
@@ -126,6 +143,28 @@ namespace HeartsCardGame
             }
         }
 
+        private void DeleteCardFromHand(List<Button> cardButtons, Card cardToDelete)
+        {
+            // Execute this method on the UI thread.
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => DeleteCardFromHand(cardButtons, cardToDelete)));
+                return;
+            }
+            // A foreach loop that will iterate through the buttons in the list and remove them from the parent container and dispose of them.
+            foreach (Button button in cardButtons)
+            {
+                if (button.Name == cardToDelete.NameButton())
+                {
+                    if (button.Parent != null)
+                    {
+                        button.Parent.Controls.Remove(button);
+                        button.Dispose();
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// This function will create the card buttons and add them to the trick flow panel. 
         /// </summary>
@@ -133,7 +172,7 @@ namespace HeartsCardGame
         /// <returns></returns>
         private void ShowTrick(List <Card> trick)
         {
-            // Execute this method on the UI thread
+            // Execute this method on the UI thread.
             if (InvokeRequired)
             {
                 Invoke(new Action(() => ShowTrick(trick)));
@@ -151,7 +190,6 @@ namespace HeartsCardGame
                     // Adding the button to a list so it can be deleted later.
                     trickList.Add(button);
             }
-            //return trickList;
         }
 
         /// <summary>
@@ -160,11 +198,20 @@ namespace HeartsCardGame
         /// <param name="trickCards"></param>
         private void DeleteTrick(List <Button> trickCards)
         {
+            // Execute this method on the UI thread.
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => DeleteTrick(trickCards)));
+                return;
+            }
             // A foreach loop that will iterate through the buttons in the list and remove them from the parent container and dispose of them.
             foreach (Button button in trickCards)
             {
-                button.Parent.Controls.Remove(button);
-                button.Dispose();
+                if (button.Parent != null)
+                {
+                    button.Parent.Controls.Remove(button);
+                    button.Dispose();
+                }
             }
         }
 
@@ -228,9 +275,6 @@ namespace HeartsCardGame
         /// </summary>
         private async void CommenceGameplay()
         {
-            // First, find the player to start with.
-            //int startIndex = FindLead(players);
-            //int currentIndex = startIndex;
             // Boolean that will hold true only once a winner is found and the game is over.
             bool winnerFound = false;
             Console.WriteLine("Entering While Loop");
@@ -265,13 +309,13 @@ namespace HeartsCardGame
             // Foreach loop that ensures every player in the game plays a card.
             for (int index = 0; index < players.Count; index++)
             {
-            //    foreach (Player player in players)
-            //{
-                Console.WriteLine("Playing Trick Number: " + index);
+                // Await the card from the play card function.
+                Console.WriteLine("Playing Trick Number: " + (index+1).ToString());
                 card = await PlayCard(players[currentIndex]);
-                // Commit to the card transaction.
-                players[currentIndex].RemoveCard(card);
+                
+                //players[currentIndex].RemoveCard(card);
                 currentTrick.Add(card);
+                DeleteTrick(trickList);
                 // Show or update the current trick on the screen for UI interaction.
                 ShowTrick(currentTrick);
                 // If the card is the first of the currentTrick, set the leading suit.
@@ -302,30 +346,36 @@ namespace HeartsCardGame
             if (player.PlayerName == user.PlayerName)
             {
                 Console.WriteLine("Human Player Turn");
-                
                 user.PlayCard(this ,CardButtons, currentTrick, heartsBroken);
-
                 await WaitForPlayerInput();
-
                 return user.CardInPlay;
             }
             // Otherwise, it must be the AI.
             else
             {
+                // Call a short delay so we can actually see the GUI do things.
                 Console.WriteLine("AI Player Turn");
-
+                await Task.Delay(5000); // 5000 milliseconds = 5 seconds
                 return player.PlayCard(currentTrick, heartsBroken);
             }
         }
 
-        private SemaphoreSlim semaphore = new SemaphoreSlim(0);
-
+        /// <summary>
+        /// This is a task that allows the application to wait until the user makes a selection, it uses a Semaphore lock that is released
+        /// later on once the user makes a selection.
+        /// </summary>
+        /// <returns></returns>
         private async Task WaitForPlayerInput()
         {
             // Wait until the cardInPlay is set
             await semaphore.WaitAsync(); 
         }
 
+        /// <summary>
+        /// This function releases the Semaphore lock that is waited on in the above function and sets the users card to the
+        /// card provided.
+        /// </summary>
+        /// <param name="button"></param>
         private void SelectCard(Button button)
         {
             foreach (Card card in user.PlayerHand)
@@ -346,9 +396,13 @@ namespace HeartsCardGame
         /// </summary>
         private void DetermineTrickWinner()
         {
+            // Incrementing the trick count.
+            trickCount++;
             // Setting the variable for the leading suit and the temp winning card as well as the points.
             string winningSuit = leadingSuit;
-            Card winningCard = currentTrick[0]; 
+            Card winningCard = currentTrick[0];
+            // Resetting the winning points variable to 0.
+            winningPoints = 0;
             // Setting a winning player to null to be searched for and set later.
             Player winningPlayer = null;
             foreach (Card card in currentTrick)
@@ -359,16 +413,75 @@ namespace HeartsCardGame
                     winningCard = card;
                 }
             }
+            // Foreach loop that iterates through the cards in the trick and adds the corresponding point value to the winner.
             foreach (Card card in currentTrick)
             {
-                card.PointValue += winningPoints;
+                winningPoints += card.PointValue;
             }
             // Trick point distribution.
             winningPlayer = players.Find(player => player.PlayerHand.Contains(winningCard));
-            winningPlayer.PlayerPoints += winningPlayer.PlayerPoints + winningPoints;
-            // Set a message to announce the winner of the trick.
-            MessageLabel.Text = winningPlayer.PlayerName + " Wins The Trick With A Total Of " + winningPoints + " Points!";
+            winningPlayer.PlayerPoints += winningPoints;
+            // Getting the winners index in the list and setting it to Current index.
+            currentIndex = players.FindIndex(player => player.PlayerHand.Contains(winningCard));
+            // Update UI on the UI thread
+            this.Invoke((MethodInvoker)delegate
+            {
+                // Set a message to announce the winner of the trick.
+                MessageLabel.Text = winningPlayer.PlayerName + " Won The Trick With A Total Of " + winningPoints + " Points!";
+            });
+            // Foreach loop that loops through all players attempting to delete a card from their hand, that is in the trick.
+            foreach (Player player in players)
+            {
+                // Iterate through each card in the list of cards to search for
+                foreach (Card cardInQuestion in currentTrick)
+                {
+                    // Find the card within the player's hand that matches the card in the list
+                    Card cardToDelete = player.PlayerHand.Find(card => card.Suit == cardInQuestion.Suit && card.Value == cardInQuestion.Value);
+                    if (cardToDelete != null)
+                    {
+                        // Calling the remove card button, also removing the button if the player is the user.
+                        player.RemoveCard(cardToDelete);
+                        if (player.PlayerName == user.PlayerName)
+                        {
+                            DeleteCardFromHand(CardButtons, cardToDelete);
+                        }
+                    }
+                }
+            }
+            // Checking if players have run out of cards, the game is not over yet, so more must be dealt.
+            foreach (Player player in players)
+            {
+                if (player.PlayerHand.Count == 0)
+                {
+                    // Incrementing the hand count.
+                    handCount++;
+                    // Rebuild the deck and deal cards again.
+                    gameDeck.BuildDeck();
+                    DealCards();
+                    FindLead(players);
+                    // Display new hand for user.
+                    DisplayHand(user);
+                    break; // Exit loop after handling one player's empty hand.
+                }
+            }
+            // Resetting variables used within this function.
+            currentTrick.Clear();
             leadingSuit = null;
+            // Invoking so we can access the controls.
+            this.Invoke((MethodInvoker)delegate
+            {
+                // Updating the leaderboards.
+                Score1TextBox.Text = players[0].PlayerPoints.ToString();
+                Score2TextBox.Text = players[1].PlayerPoints.ToString();
+                // If it is not two player mode, update the other players stats as well.
+                if(!twoPlayerMode)
+                {
+                    Score3TextBox.Text = players[2].PlayerPoints.ToString();
+                    Score4TextBox.Text = players[3].PlayerPoints.ToString();
+                }
+                TrickNumTextBox.Text = trickCount.ToString();
+                HandNumTextBox.Text = handCount.ToString();
+            });
         }
         #endregion
         #region Button Functions
@@ -381,7 +494,7 @@ namespace HeartsCardGame
 
         private void ResetGameButton_Click(object sender, EventArgs e)
         {
-
+            SetDefaults();
         }
 
 
@@ -392,6 +505,30 @@ namespace HeartsCardGame
 
 
         private void ExitButton_Click(object sender, EventArgs e)
+        {
+
+        }
+        
+
+        private void StartGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CommenceGameplay();
+        }
+
+
+        private void ResetGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetDefaults();
+        }
+
+
+        private void RulesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

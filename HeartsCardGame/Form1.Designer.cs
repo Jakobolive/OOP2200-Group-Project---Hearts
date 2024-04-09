@@ -36,13 +36,13 @@
             this.ResetGameButton = new System.Windows.Forms.Button();
             this.PlayerInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.NameLabel = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.Score4TextBox = new System.Windows.Forms.TextBox();
             this.Player4Label = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.Score3TextBox = new System.Windows.Forms.TextBox();
             this.Player3Label = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.Score2TextBox = new System.Windows.Forms.TextBox();
             this.Player2Label = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.Score1TextBox = new System.Windows.Forms.TextBox();
             this.ScoreLabel = new System.Windows.Forms.Label();
             this.Player1Label = new System.Windows.Forms.Label();
             this.GameInfoGroupBox = new System.Windows.Forms.GroupBox();
@@ -85,7 +85,7 @@
             this.StartGameButton.Name = "StartGameButton";
             this.StartGameButton.Size = new System.Drawing.Size(238, 91);
             this.StartGameButton.TabIndex = 6;
-            this.StartGameButton.Text = "Start Game";
+            this.StartGameButton.Text = "Start Round";
             this.StartGameButton.UseVisualStyleBackColor = true;
             this.StartGameButton.Click += new System.EventHandler(this.StartGameButton_Click);
             // 
@@ -122,13 +122,13 @@
             // PlayerInfoGroupBox
             // 
             this.PlayerInfoGroupBox.Controls.Add(this.NameLabel);
-            this.PlayerInfoGroupBox.Controls.Add(this.textBox11);
+            this.PlayerInfoGroupBox.Controls.Add(this.Score4TextBox);
             this.PlayerInfoGroupBox.Controls.Add(this.Player4Label);
-            this.PlayerInfoGroupBox.Controls.Add(this.textBox9);
+            this.PlayerInfoGroupBox.Controls.Add(this.Score3TextBox);
             this.PlayerInfoGroupBox.Controls.Add(this.Player3Label);
-            this.PlayerInfoGroupBox.Controls.Add(this.textBox7);
+            this.PlayerInfoGroupBox.Controls.Add(this.Score2TextBox);
             this.PlayerInfoGroupBox.Controls.Add(this.Player2Label);
-            this.PlayerInfoGroupBox.Controls.Add(this.textBox4);
+            this.PlayerInfoGroupBox.Controls.Add(this.Score1TextBox);
             this.PlayerInfoGroupBox.Controls.Add(this.ScoreLabel);
             this.PlayerInfoGroupBox.Controls.Add(this.Player1Label);
             this.PlayerInfoGroupBox.Location = new System.Drawing.Point(12, 41);
@@ -147,15 +147,15 @@
             this.NameLabel.TabIndex = 32;
             this.NameLabel.Text = "Name";
             // 
-            // textBox11
+            // Score4TextBox
             // 
-            this.textBox11.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox11.Enabled = false;
-            this.textBox11.Location = new System.Drawing.Point(163, 141);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(72, 15);
-            this.textBox11.TabIndex = 31;
+            this.Score4TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Score4TextBox.Enabled = false;
+            this.Score4TextBox.Location = new System.Drawing.Point(163, 141);
+            this.Score4TextBox.Name = "Score4TextBox";
+            this.Score4TextBox.ReadOnly = true;
+            this.Score4TextBox.Size = new System.Drawing.Size(72, 15);
+            this.Score4TextBox.TabIndex = 31;
             // 
             // Player4Label
             // 
@@ -165,15 +165,15 @@
             this.Player4Label.Size = new System.Drawing.Size(0, 16);
             this.Player4Label.TabIndex = 30;
             // 
-            // textBox9
+            // Score3TextBox
             // 
-            this.textBox9.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox9.Enabled = false;
-            this.textBox9.Location = new System.Drawing.Point(163, 107);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(72, 15);
-            this.textBox9.TabIndex = 28;
+            this.Score3TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Score3TextBox.Enabled = false;
+            this.Score3TextBox.Location = new System.Drawing.Point(163, 107);
+            this.Score3TextBox.Name = "Score3TextBox";
+            this.Score3TextBox.ReadOnly = true;
+            this.Score3TextBox.Size = new System.Drawing.Size(72, 15);
+            this.Score3TextBox.TabIndex = 28;
             // 
             // Player3Label
             // 
@@ -183,15 +183,15 @@
             this.Player3Label.Size = new System.Drawing.Size(0, 16);
             this.Player3Label.TabIndex = 27;
             // 
-            // textBox7
+            // Score2TextBox
             // 
-            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox7.Enabled = false;
-            this.textBox7.Location = new System.Drawing.Point(163, 73);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(72, 15);
-            this.textBox7.TabIndex = 25;
+            this.Score2TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Score2TextBox.Enabled = false;
+            this.Score2TextBox.Location = new System.Drawing.Point(163, 73);
+            this.Score2TextBox.Name = "Score2TextBox";
+            this.Score2TextBox.ReadOnly = true;
+            this.Score2TextBox.Size = new System.Drawing.Size(72, 15);
+            this.Score2TextBox.TabIndex = 25;
             // 
             // Player2Label
             // 
@@ -201,15 +201,15 @@
             this.Player2Label.Size = new System.Drawing.Size(0, 16);
             this.Player2Label.TabIndex = 24;
             // 
-            // textBox4
+            // Score1TextBox
             // 
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(163, 39);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(72, 15);
-            this.textBox4.TabIndex = 22;
+            this.Score1TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Score1TextBox.Enabled = false;
+            this.Score1TextBox.Location = new System.Drawing.Point(163, 39);
+            this.Score1TextBox.Name = "Score1TextBox";
+            this.Score1TextBox.ReadOnly = true;
+            this.Score1TextBox.Size = new System.Drawing.Size(72, 15);
+            this.Score1TextBox.TabIndex = 22;
             // 
             // ScoreLabel
             // 
@@ -306,33 +306,37 @@
             this.ExitToolStripMenuItem});
             this.GameMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.GameMenuStrip.Name = "GameMenuStrip";
-            this.GameMenuStrip.Size = new System.Drawing.Size(1440, 30);
+            this.GameMenuStrip.Size = new System.Drawing.Size(1440, 28);
             this.GameMenuStrip.TabIndex = 22;
             this.GameMenuStrip.Text = "CardsMenuStrip";
             // 
             // StartGameToolStripMenuItem
             // 
             this.StartGameToolStripMenuItem.Name = "StartGameToolStripMenuItem";
-            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 26);
+            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
             this.StartGameToolStripMenuItem.Text = "Start Game";
+            this.StartGameToolStripMenuItem.Click += new System.EventHandler(this.StartGameToolStripMenuItem_Click);
             // 
             // ResetGameToolStripMenuItem
             // 
             this.ResetGameToolStripMenuItem.Name = "ResetGameToolStripMenuItem";
-            this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 26);
+            this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
             this.ResetGameToolStripMenuItem.Text = "Reset Game";
+            this.ResetGameToolStripMenuItem.Click += new System.EventHandler(this.ResetGameToolStripMenuItem_Click);
             // 
             // RulesToolStripMenuItem
             // 
             this.RulesToolStripMenuItem.Name = "RulesToolStripMenuItem";
-            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
+            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.RulesToolStripMenuItem.Text = "Rules";
+            this.RulesToolStripMenuItem.Click += new System.EventHandler(this.RulesToolStripMenuItem_Click);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 26);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.ExitToolStripMenuItem.Text = "Exit";
+            this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // HandFlowLayoutPanel
             // 
@@ -392,10 +396,10 @@
         private System.Windows.Forms.Button RulesButton;
         private System.Windows.Forms.Button ResetGameButton;
         private System.Windows.Forms.GroupBox PlayerInfoGroupBox;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox Score4TextBox;
+        private System.Windows.Forms.TextBox Score3TextBox;
+        private System.Windows.Forms.TextBox Score2TextBox;
+        private System.Windows.Forms.TextBox Score1TextBox;
         private System.Windows.Forms.Label ScoreLabel;
         private System.Windows.Forms.GroupBox GameInfoGroupBox;
         private System.Windows.Forms.TextBox HandNumTextBox;
