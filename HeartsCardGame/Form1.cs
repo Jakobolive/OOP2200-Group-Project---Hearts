@@ -355,7 +355,7 @@ namespace HeartsCardGame
             {
                 // Call a short delay so we can actually see the GUI do things.
                 Console.WriteLine("AI Player Turn");
-                await Task.Delay(5000); // 5000 milliseconds = 5 seconds
+                await Task.Delay(2500); // 5000 milliseconds = 5 seconds
                 return player.PlayCard(currentTrick, heartsBroken);
             }
         }
