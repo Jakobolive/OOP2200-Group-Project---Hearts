@@ -89,26 +89,6 @@ namespace HeartsCardGame
             cardDeck.Remove(card);
             return card;
         }
-
-        ///// <summary>
-        ///// This function will get the list and return it for use in the form.
-        ///// </summary>
-        ///// <returns></returns>
-        //public List<Card> GetDeck()
-        //{
-        //    // Return the list.
-        //    return cardDeck;
-        //}
-
-        ///// <summary>
-        ///// This function will set the values of the current list to the values of a new list. (Used In Shuffle And Deck Creation)
-        ///// </summary>
-        ///// <param name="newDeck"></param>
-        //public void SetDeck(List<Card> newDeck)
-        //{
-        //    // Setting the cardDeck to the values of a newDeck.
-        //    cardDeck = newDeck;
-        //}
         #endregion
     }
 }

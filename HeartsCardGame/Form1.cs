@@ -24,23 +24,34 @@ namespace HeartsCardGame
         private int handCount = 0;
         private int currentIndex = 0;
         private Deck gameDeck = new Deck();
-        private HumanPlayer user = new HumanPlayer("You");
+        private HumanPlayer user;
         private List<Player> players;
         private List<Button> CardButtons = new List<Button>();
         private List<Button> trickList = new List<Button>();
         private List<Card> currentTrick = new List<Card>();
         private int winningPoints;
         private string leadingSuit;
-        private bool twoPlayerMode = false;
         private bool heartsBroken = false;
         #endregion
-        #region Initialize 
-        public HeartsGame()
+        #region Initialize & Setup
+        // Define fields to hold setup values
+        private int score;
+        private bool twoPlayerMode;
+        private string name;
+        private string theme;
+
+        public HeartsGame(int score, bool twoPlayerMode, string name, string theme)
         {
-           InitializeComponent();
-           // ApplyTheme();
-           GameSetup();
+            InitializeComponent();
+            // Initialize fields with setup values
+            this.score = score;
+            this.twoPlayerMode = twoPlayerMode;
+            this.name = name;
+            this.theme = theme;
+            ApplyTheme();
+            GameSetup();
         }
+
         #endregion
         #region Code Functions
         /// <summary>
@@ -56,29 +67,82 @@ namespace HeartsCardGame
             GameSetup();
         }
 
-        ///// <summary>
-        ///// This function will apply the style theme that the user selects based off their selection.
-        ///// </summary>
-        //private void ApplyTheme()
-        //{
-        // Need to work the two player mode selection into this somehow.
-        //    string selectedTheme = Properties.Settings.Default.SelectedTheme;
-        //    twoPlayerMode =;
-        //    // Apply styles based on selected theme
-        //    switch (selectedTheme)
-        //    {
-        //        /// EXAMPLE THEMES FOR NOW.
-        //        case "Dark":
-        //            // Apply dark theme
-        //            this.BackColor = Color.Black;
-        //            // Additional styling for controls
-        //            break;
-        //        case "Light":
-        //            // Apply light theme
-        //            this.BackColor = Color.White;
-        //            // Additional styling for controls
-        //            break;
-        //            // Add more cases for additional themes
+        /// <summary>
+        /// This function will iterate through the controls within the form and change the text colour accordingly.
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="color"></param>
+        private void ChangeTextColors(Control control, Color color)
+        {
+            // Change the text color of the current control
+            control.ForeColor = color;
+
+            // Recursively iterate through all child controls
+            foreach (Control childControl in control.Controls)
+            {
+                ChangeTextColors(childControl, color);
+            }
+        }
+
+        /// <summary>
+        /// This function will iterate through all controls within the form and change the background colour accordingly.
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="color"></param>
+        private void ChangeBackColors(Control control, Color color)
+        {
+            // Change the text color of the current control
+            control.BackColor = color;
+
+            // Recursively iterate through all child controls
+            foreach (Control childControl in control.Controls)
+            {
+                ChangeBackColors(childControl, color);
+            }
+        }
+
+        /// <summary>
+        /// This function will apply the style theme that the user selects based off their selection.
+        /// </summary>
+        private void ApplyTheme()
+        {
+            // Apply styles based on selected theme
+            switch (theme)
+            {
+                case "Light":
+                    // Apply light theme.
+                    this.BackColor = Color.GhostWhite;
+                    GameMenuStrip.BackColor = Color.GhostWhite;
+                    GameMenuStrip.ForeColor = Color.Black;
+                    ChangeBackColors(this, Color.GhostWhite);
+                    ChangeTextColors(this, Color.Black);
+                    break;
+                case "Dark":
+                    // Apply dark theme.
+                    this.BackColor = Color.Black;
+                    GameMenuStrip.BackColor = Color.Black;
+                    GameMenuStrip.ForeColor = Color.GhostWhite;
+                    ChangeBackColors(this, Color.Black);
+                    ChangeTextColors(this, Color.GhostWhite);
+                    break;
+                case "Card":
+                    // Apply card theme.
+                    this.BackColor = Color.DarkGreen;
+                    GameMenuStrip.BackColor = Color.DarkGreen;
+                    GameMenuStrip.ForeColor = Color.Black;
+                    ChangeBackColors(this, Color.DarkGreen);
+                    ChangeTextColors(this, Color.Black);
+                    break;
+                case "GUI":
+                    // Apply GUI theme.
+                    this.BackColor = Color.DarkGray;
+                    GameMenuStrip.BackColor = Color.DarkGray;
+                    GameMenuStrip.ForeColor = Color.Black;
+                    ChangeBackColors(this, Color.DarkGray);
+                    ChangeTextColors(this, Color.Black);
+                    break;
+            }
+        }
 
         /// <summary>
         /// This function will build the deck, create the players as well as deal them cards, This function
@@ -87,14 +151,27 @@ namespace HeartsCardGame
         private void GameSetup()
         {
             gameDeck.BuildDeck();
+            // Add a value to the user.
+            user = new HumanPlayer(name);
             // Player creation.
-            players = new List<Player>
+            if (!twoPlayerMode)
             {
-                user,
-                new AIPlayer("AI Player 1"),
-                new AIPlayer("AI Player 2"),
-                new AIPlayer("AI Player 3")
-            };
+                players = new List<Player>
+                {
+                    user,
+                    new AIPlayer("AI Player 1"),
+                    new AIPlayer("AI Player 2"),
+                    new AIPlayer("AI Player 3")
+                };
+            }
+            else
+            {
+                players = new List<Player>
+                {
+                    user,
+                    new AIPlayer("AI Player 1")
+                };
+            }
             // Update the GUI with the names.
             Player1Label.Text = players[0].PlayerName + ":";
             Player2Label.Text = players[1].PlayerName + ":";
@@ -130,13 +207,37 @@ namespace HeartsCardGame
             // A foreach loop that dynamically builds the card buttons as per the players hand.
             foreach (Card card in sortedHand)
             {
-                // Creating, adding text to, sizing, naming, attaching functionality, and placing the button.
+                // Creating, adding text to, sizing, naming, attaching functionality, styling, and placing the button.
                 Button button = new Button();
                 button.Text = card.ToString();
                 button.Size = new Size(75, 125); 
                 button.Name = card.NameButton();
                 button.Click += (sender, e) => SelectCard(button);
                 button.Enabled = false;
+                // Apply styles based on selected theme
+                switch (theme)
+                {
+                    case "Light":
+                        // Apply light theme.
+                        button.BackColor = Color.GhostWhite;
+                        button.ForeColor = Color.Black;
+                        break;
+                    case "Dark":
+                        // Apply dark theme.
+                        button.BackColor = Color.DarkGray;
+                        button.ForeColor = Color.Black;
+                        break;
+                    case "Card":
+                        // Apply card theme.
+                        button.BackColor = Color.DarkGreen;
+                        button.ForeColor = Color.Black;
+                        break;
+                    case "GUI":
+                        // Apply GUI theme.
+                        button.BackColor = Color.DarkGray;
+                        button.ForeColor = Color.Black;
+                        break;
+                }
                 HandFlowLayoutPanel.Controls.Add(button);
                 // Adding the new button to the list of buttons for easy access and manipulation.
                 CardButtons.Add(button);
@@ -180,15 +281,39 @@ namespace HeartsCardGame
             }
             foreach (Card card in trick)
             {
-                    // Creating, adding text to, sizing, naming, attaching functionality, and placing the button.
-                    Button button = new Button();
-                    button.Text = card.ToString();
-                    button.Size = new Size(75, 125);
-                    button.Name = card.NameButton();
-                    button.Enabled = false;
-                    TrickFlowLayoutPanel.Controls.Add(button);
-                    // Adding the button to a list so it can be deleted later.
-                    trickList.Add(button);
+                // Creating, adding text to, sizing, naming, attaching functionality, styling, and placing the button.
+                Button button = new Button();
+                button.Text = card.ToString();
+                button.Size = new Size(75, 125);
+                button.Name = card.NameButton();
+                button.Enabled = false;
+                // Apply styles based on selected theme
+                switch (theme)
+                {
+                    case "Light":
+                        // Apply light theme.
+                        button.BackColor = Color.GhostWhite;
+                        button.ForeColor = Color.Black;
+                        break;
+                    case "Dark":
+                        // Apply dark theme.
+                        button.BackColor = Color.DarkGray;
+                        button.ForeColor = Color.Black;
+                        break;
+                    case "Card":
+                        // Apply card theme.
+                        button.BackColor = Color.DarkGreen;
+                        button.ForeColor = Color.Black;
+                        break;
+                    case "GUI":
+                        // Apply GUI theme.
+                        button.BackColor = Color.DarkGray;
+                        button.ForeColor = Color.Black;
+                        break;
+                }
+                TrickFlowLayoutPanel.Controls.Add(button);
+                // Adding the button to a list so it can be deleted later.
+                trickList.Add(button);
             }
         }
 
@@ -286,7 +411,7 @@ namespace HeartsCardGame
                     // End of match
                     foreach (Player player in players)
                     {
-                        if (player.PlayerPoints >= 100)
+                        if (player.PlayerPoints >= score)
                         {
                             // Do winner stuff here.
                             winnerFound = true;
@@ -312,12 +437,14 @@ namespace HeartsCardGame
                 // Await the card from the play card function.
                 Console.WriteLine("Playing Trick Number: " + (index+1).ToString());
                 card = await PlayCard(players[currentIndex]);
-                
-                //players[currentIndex].RemoveCard(card);
                 currentTrick.Add(card);
                 DeleteTrick(trickList);
                 // Show or update the current trick on the screen for UI interaction.
                 ShowTrick(currentTrick);
+                this.Invoke((MethodInvoker)delegate
+                {
+                    MessageLabel.Text = players[currentIndex].PlayerName + " Played The " + card.ToString();
+                });
                 // If the card is the first of the currentTrick, set the leading suit.
                 if (leadingSuit == null)
                 {
@@ -355,7 +482,7 @@ namespace HeartsCardGame
             {
                 // Call a short delay so we can actually see the GUI do things.
                 Console.WriteLine("AI Player Turn");
-                await Task.Delay(2500); // 5000 milliseconds = 5 seconds
+                await Task.Delay(2500); // 2500 milliseconds = 2.5 seconds
                 return player.PlayCard(currentTrick, heartsBroken);
             }
         }
@@ -485,6 +612,14 @@ namespace HeartsCardGame
         }
         #endregion
         #region Button Functions
+        
+        private void ShowRules()
+        {
+            // Instantiate the rules form
+            RulesForm rulesForm = new RulesForm();
+            // Display the rules form.
+            rulesForm.ShowDialog();
+        }
 
         private void StartGameButton_Click(object sender, EventArgs e)
         {
@@ -500,13 +635,13 @@ namespace HeartsCardGame
 
         private void RulesButton_Click(object sender, EventArgs e)
         {
-
+            ShowRules();
         }
 
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
-
+            Close();
         }
         
 
@@ -524,13 +659,13 @@ namespace HeartsCardGame
 
         private void RulesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ShowRules();
         }
 
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Close();
         }
         #endregion
     }

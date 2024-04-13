@@ -66,6 +66,7 @@
             this.MaximumSize = new System.Drawing.Size(485, 488);
             this.MinimumSize = new System.Drawing.Size(485, 488);
             this.Name = "RulesForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rules Form";
             this.RulesGroupBox.ResumeLayout(false);
             this.RulesGroupBox.PerformLayout();

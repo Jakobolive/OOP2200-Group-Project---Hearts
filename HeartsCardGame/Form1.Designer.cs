@@ -50,8 +50,7 @@
             this.TrickNumTextBox = new System.Windows.Forms.TextBox();
             this.TrickNumLabel = new System.Windows.Forms.Label();
             this.HandNumLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.Player3NameLabel = new System.Windows.Forms.Label();
             this.GameMenuStrip = new System.Windows.Forms.MenuStrip();
             this.StartGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -234,7 +233,6 @@
             this.GameInfoGroupBox.Controls.Add(this.TrickNumTextBox);
             this.GameInfoGroupBox.Controls.Add(this.TrickNumLabel);
             this.GameInfoGroupBox.Controls.Add(this.HandNumLabel);
-            this.GameInfoGroupBox.Controls.Add(this.label2);
             this.GameInfoGroupBox.Location = new System.Drawing.Point(12, 247);
             this.GameInfoGroupBox.Name = "GameInfoGroupBox";
             this.GameInfoGroupBox.Size = new System.Drawing.Size(250, 94);
@@ -280,21 +278,13 @@
             this.HandNumLabel.TabIndex = 14;
             this.HandNumLabel.Text = "Hand Number:";
             // 
-            // label2
+            // Player3NameLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 16);
-            this.label2.TabIndex = 3;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(27, 162);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(0, 16);
-            this.label5.TabIndex = 16;
+            this.Player3NameLabel.AutoSize = true;
+            this.Player3NameLabel.Location = new System.Drawing.Point(27, 162);
+            this.Player3NameLabel.Name = "Player3NameLabel";
+            this.Player3NameLabel.Size = new System.Drawing.Size(0, 16);
+            this.Player3NameLabel.TabIndex = 16;
             // 
             // GameMenuStrip
             // 
@@ -306,35 +296,35 @@
             this.ExitToolStripMenuItem});
             this.GameMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.GameMenuStrip.Name = "GameMenuStrip";
-            this.GameMenuStrip.Size = new System.Drawing.Size(1440, 28);
+            this.GameMenuStrip.Size = new System.Drawing.Size(1440, 30);
             this.GameMenuStrip.TabIndex = 22;
             this.GameMenuStrip.Text = "CardsMenuStrip";
             // 
             // StartGameToolStripMenuItem
             // 
             this.StartGameToolStripMenuItem.Name = "StartGameToolStripMenuItem";
-            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
+            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 26);
             this.StartGameToolStripMenuItem.Text = "Start Game";
             this.StartGameToolStripMenuItem.Click += new System.EventHandler(this.StartGameToolStripMenuItem_Click);
             // 
             // ResetGameToolStripMenuItem
             // 
             this.ResetGameToolStripMenuItem.Name = "ResetGameToolStripMenuItem";
-            this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
+            this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 26);
             this.ResetGameToolStripMenuItem.Text = "Reset Game";
             this.ResetGameToolStripMenuItem.Click += new System.EventHandler(this.ResetGameToolStripMenuItem_Click);
             // 
             // RulesToolStripMenuItem
             // 
             this.RulesToolStripMenuItem.Name = "RulesToolStripMenuItem";
-            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
+            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
             this.RulesToolStripMenuItem.Text = "Rules";
             this.RulesToolStripMenuItem.Click += new System.EventHandler(this.RulesToolStripMenuItem_Click);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 26);
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -349,17 +339,16 @@
             // 
             this.TrickFlowLayoutPanel.Location = new System.Drawing.Point(268, 41);
             this.TrickFlowLayoutPanel.Name = "TrickFlowLayoutPanel";
-            this.TrickFlowLayoutPanel.Size = new System.Drawing.Size(908, 372);
+            this.TrickFlowLayoutPanel.Size = new System.Drawing.Size(902, 372);
             this.TrickFlowLayoutPanel.TabIndex = 24;
             // 
             // MessageLabel
             // 
             this.MessageLabel.AutoSize = true;
-            this.MessageLabel.Location = new System.Drawing.Point(265, 416);
+            this.MessageLabel.Location = new System.Drawing.Point(265, 419);
             this.MessageLabel.Name = "MessageLabel";
-            this.MessageLabel.Size = new System.Drawing.Size(383, 16);
+            this.MessageLabel.Size = new System.Drawing.Size(0, 16);
             this.MessageLabel.TabIndex = 25;
-            this.MessageLabel.Text = "MESSAGET THAT WILL BE MOVED AND ADJUSTED LATER";
             // 
             // HeartsGame
             // 
@@ -372,10 +361,13 @@
             this.Controls.Add(this.OptionsGroupBox);
             this.Controls.Add(this.PlayerInfoGroupBox);
             this.Controls.Add(this.GameInfoGroupBox);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.Player3NameLabel);
             this.Controls.Add(this.GameMenuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(1458, 829);
+            this.MinimumSize = new System.Drawing.Size(1458, 829);
             this.Name = "HeartsGame";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hearts";
             this.OptionsGroupBox.ResumeLayout(false);
             this.PlayerInfoGroupBox.ResumeLayout(false);
@@ -406,8 +398,7 @@
         private System.Windows.Forms.TextBox TrickNumTextBox;
         private System.Windows.Forms.Label TrickNumLabel;
         private System.Windows.Forms.Label HandNumLabel;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label Player3NameLabel;
         private System.Windows.Forms.MenuStrip GameMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem RulesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ResetGameToolStripMenuItem;

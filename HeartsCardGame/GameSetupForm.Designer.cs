@@ -30,19 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameSetupForm));
             this.GameSetupGroupBox1 = new System.Windows.Forms.GroupBox();
+            this.ResetButton = new System.Windows.Forms.Button();
+            this.ConfirmSetupButton = new System.Windows.Forms.Button();
+            this.GUIThemeRadioButton = new System.Windows.Forms.RadioButton();
+            this.CardsThemeRadioButton = new System.Windows.Forms.RadioButton();
+            this.DarkThemeRadioButton = new System.Windows.Forms.RadioButton();
+            this.LightThemeRadioButton = new System.Windows.Forms.RadioButton();
+            this.ThemeSelectionLabel = new System.Windows.Forms.Label();
             this.PlayerNameTextBox = new System.Windows.Forms.TextBox();
             this.PlayerNameLabel = new System.Windows.Forms.Label();
             this.NumOfPlayerComboBox = new System.Windows.Forms.ComboBox();
             this.NumOfPlayerLabel = new System.Windows.Forms.Label();
             this.MaxScoreLabel = new System.Windows.Forms.Label();
             this.MaxScoreTextBox = new System.Windows.Forms.TextBox();
-            this.ThemeSelectionLabel = new System.Windows.Forms.Label();
-            this.LightThemeRadioButton = new System.Windows.Forms.RadioButton();
-            this.DarkThemeRadioButton = new System.Windows.Forms.RadioButton();
-            this.CardsThemeRadioButton = new System.Windows.Forms.RadioButton();
-            this.GUIThemeRadioButton = new System.Windows.Forms.RadioButton();
-            this.ConfirmSetupButton = new System.Windows.Forms.Button();
-            this.ResetButton = new System.Windows.Forms.Button();
             this.GameSetupGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +67,83 @@
             this.GameSetupGroupBox1.TabIndex = 1;
             this.GameSetupGroupBox1.TabStop = false;
             this.GameSetupGroupBox1.Text = "Game Setup";
+            // 
+            // ResetButton
+            // 
+            this.ResetButton.Location = new System.Drawing.Point(197, 252);
+            this.ResetButton.Name = "ResetButton";
+            this.ResetButton.Size = new System.Drawing.Size(109, 23);
+            this.ResetButton.TabIndex = 12;
+            this.ResetButton.Text = "Reset Setup";
+            this.ResetButton.UseVisualStyleBackColor = true;
+            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
+            // ConfirmSetupButton
+            // 
+            this.ConfirmSetupButton.Location = new System.Drawing.Point(6, 252);
+            this.ConfirmSetupButton.Name = "ConfirmSetupButton";
+            this.ConfirmSetupButton.Size = new System.Drawing.Size(109, 23);
+            this.ConfirmSetupButton.TabIndex = 11;
+            this.ConfirmSetupButton.Text = "Confirm Setup";
+            this.ConfirmSetupButton.UseVisualStyleBackColor = true;
+            this.ConfirmSetupButton.Click += new System.EventHandler(this.ConfirmSetupButton_Click);
+            // 
+            // GUIThemeRadioButton
+            // 
+            this.GUIThemeRadioButton.AutoSize = true;
+            this.GUIThemeRadioButton.Location = new System.Drawing.Point(155, 214);
+            this.GUIThemeRadioButton.Name = "GUIThemeRadioButton";
+            this.GUIThemeRadioButton.Size = new System.Drawing.Size(132, 20);
+            this.GUIThemeRadioButton.TabIndex = 10;
+            this.GUIThemeRadioButton.TabStop = true;
+            this.GUIThemeRadioButton.Tag = "GUI";
+            this.GUIThemeRadioButton.Text = "GUI Base Theme";
+            this.GUIThemeRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // CardsThemeRadioButton
+            // 
+            this.CardsThemeRadioButton.AutoSize = true;
+            this.CardsThemeRadioButton.Location = new System.Drawing.Point(6, 214);
+            this.CardsThemeRadioButton.Name = "CardsThemeRadioButton";
+            this.CardsThemeRadioButton.Size = new System.Drawing.Size(143, 20);
+            this.CardsThemeRadioButton.TabIndex = 9;
+            this.CardsThemeRadioButton.TabStop = true;
+            this.CardsThemeRadioButton.Tag = "Card";
+            this.CardsThemeRadioButton.Text = "Card Game Theme";
+            this.CardsThemeRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // DarkThemeRadioButton
+            // 
+            this.DarkThemeRadioButton.AutoSize = true;
+            this.DarkThemeRadioButton.Location = new System.Drawing.Point(155, 173);
+            this.DarkThemeRadioButton.Name = "DarkThemeRadioButton";
+            this.DarkThemeRadioButton.Size = new System.Drawing.Size(103, 20);
+            this.DarkThemeRadioButton.TabIndex = 8;
+            this.DarkThemeRadioButton.TabStop = true;
+            this.DarkThemeRadioButton.Tag = "Dark";
+            this.DarkThemeRadioButton.Text = "Dark Theme";
+            this.DarkThemeRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // LightThemeRadioButton
+            // 
+            this.LightThemeRadioButton.AutoSize = true;
+            this.LightThemeRadioButton.Location = new System.Drawing.Point(6, 173);
+            this.LightThemeRadioButton.Name = "LightThemeRadioButton";
+            this.LightThemeRadioButton.Size = new System.Drawing.Size(102, 20);
+            this.LightThemeRadioButton.TabIndex = 7;
+            this.LightThemeRadioButton.TabStop = true;
+            this.LightThemeRadioButton.Tag = "Light";
+            this.LightThemeRadioButton.Text = "Light Theme";
+            this.LightThemeRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ThemeSelectionLabel
+            // 
+            this.ThemeSelectionLabel.AutoSize = true;
+            this.ThemeSelectionLabel.Location = new System.Drawing.Point(3, 133);
+            this.ThemeSelectionLabel.Name = "ThemeSelectionLabel";
+            this.ThemeSelectionLabel.Size = new System.Drawing.Size(112, 16);
+            this.ThemeSelectionLabel.TabIndex = 6;
+            this.ThemeSelectionLabel.Text = "Theme Selection:";
             // 
             // PlayerNameTextBox
             // 
@@ -100,9 +177,9 @@
             this.NumOfPlayerLabel.AutoSize = true;
             this.NumOfPlayerLabel.Location = new System.Drawing.Point(3, 61);
             this.NumOfPlayerLabel.Name = "NumOfPlayerLabel";
-            this.NumOfPlayerLabel.Size = new System.Drawing.Size(136, 16);
+            this.NumOfPlayerLabel.Size = new System.Drawing.Size(87, 16);
             this.NumOfPlayerLabel.TabIndex = 3;
-            this.NumOfPlayerLabel.Text = "Number of AI Players:";
+            this.NumOfPlayerLabel.Text = "Player Mode:";
             // 
             // MaxScoreLabel
             // 
@@ -120,79 +197,6 @@
             this.MaxScoreTextBox.Size = new System.Drawing.Size(100, 22);
             this.MaxScoreTextBox.TabIndex = 2;
             // 
-            // ThemeSelectionLabel
-            // 
-            this.ThemeSelectionLabel.AutoSize = true;
-            this.ThemeSelectionLabel.Location = new System.Drawing.Point(3, 133);
-            this.ThemeSelectionLabel.Name = "ThemeSelectionLabel";
-            this.ThemeSelectionLabel.Size = new System.Drawing.Size(112, 16);
-            this.ThemeSelectionLabel.TabIndex = 6;
-            this.ThemeSelectionLabel.Text = "Theme Selection:";
-            // 
-            // LightThemeRadioButton
-            // 
-            this.LightThemeRadioButton.AutoSize = true;
-            this.LightThemeRadioButton.Location = new System.Drawing.Point(6, 173);
-            this.LightThemeRadioButton.Name = "LightThemeRadioButton";
-            this.LightThemeRadioButton.Size = new System.Drawing.Size(102, 20);
-            this.LightThemeRadioButton.TabIndex = 7;
-            this.LightThemeRadioButton.TabStop = true;
-            this.LightThemeRadioButton.Text = "Light Theme";
-            this.LightThemeRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // DarkThemeRadioButton
-            // 
-            this.DarkThemeRadioButton.AutoSize = true;
-            this.DarkThemeRadioButton.Location = new System.Drawing.Point(155, 173);
-            this.DarkThemeRadioButton.Name = "DarkThemeRadioButton";
-            this.DarkThemeRadioButton.Size = new System.Drawing.Size(103, 20);
-            this.DarkThemeRadioButton.TabIndex = 8;
-            this.DarkThemeRadioButton.TabStop = true;
-            this.DarkThemeRadioButton.Text = "Dark Theme";
-            this.DarkThemeRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // CardsThemeRadioButton
-            // 
-            this.CardsThemeRadioButton.AutoSize = true;
-            this.CardsThemeRadioButton.Location = new System.Drawing.Point(6, 214);
-            this.CardsThemeRadioButton.Name = "CardsThemeRadioButton";
-            this.CardsThemeRadioButton.Size = new System.Drawing.Size(143, 20);
-            this.CardsThemeRadioButton.TabIndex = 9;
-            this.CardsThemeRadioButton.TabStop = true;
-            this.CardsThemeRadioButton.Text = "Card Game Theme";
-            this.CardsThemeRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // GUIThemeRadioButton
-            // 
-            this.GUIThemeRadioButton.AutoSize = true;
-            this.GUIThemeRadioButton.Location = new System.Drawing.Point(155, 214);
-            this.GUIThemeRadioButton.Name = "GUIThemeRadioButton";
-            this.GUIThemeRadioButton.Size = new System.Drawing.Size(132, 20);
-            this.GUIThemeRadioButton.TabIndex = 10;
-            this.GUIThemeRadioButton.TabStop = true;
-            this.GUIThemeRadioButton.Text = "GUI Base Theme";
-            this.GUIThemeRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // ConfirmSetupButton
-            // 
-            this.ConfirmSetupButton.Location = new System.Drawing.Point(6, 252);
-            this.ConfirmSetupButton.Name = "ConfirmSetupButton";
-            this.ConfirmSetupButton.Size = new System.Drawing.Size(109, 23);
-            this.ConfirmSetupButton.TabIndex = 11;
-            this.ConfirmSetupButton.Text = "Confirm Setup";
-            this.ConfirmSetupButton.UseVisualStyleBackColor = true;
-            this.ConfirmSetupButton.Click += new System.EventHandler(this.ConfirmSetupButton_Click);
-            // 
-            // ResetButton
-            // 
-            this.ResetButton.Location = new System.Drawing.Point(197, 252);
-            this.ResetButton.Name = "ResetButton";
-            this.ResetButton.Size = new System.Drawing.Size(109, 23);
-            this.ResetButton.TabIndex = 12;
-            this.ResetButton.Text = "Reset Setup";
-            this.ResetButton.UseVisualStyleBackColor = true;
-            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
-            // 
             // GameSetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -203,6 +207,7 @@
             this.MaximumSize = new System.Drawing.Size(354, 360);
             this.MinimumSize = new System.Drawing.Size(354, 360);
             this.Name = "GameSetupForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game Setup";
             this.GameSetupGroupBox1.ResumeLayout(false);
             this.GameSetupGroupBox1.PerformLayout();
