@@ -20,7 +20,7 @@ namespace HeartsCardGame
         #endregion
         #region Constructor
         /// <summary>
-        /// 
+        /// Default constructor for the HumanPlayer that sets a card to null.
         /// </summary>
         /// <param name="newPlayerName"></param>
         /// <param name="cardInPlay"></param>
@@ -90,6 +90,7 @@ namespace HeartsCardGame
                 // Else, it is further along in the game and it is in free for all.
                 else
                 {
+                    heartsBroken = true;
                     // Setting, validating, and waiting of selection when the player can play any card.
                     EnableCards(control, cardButtons, ValidateCards(playerHand, heartsBroken));
                     return cardInPlay;

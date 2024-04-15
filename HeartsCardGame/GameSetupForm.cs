@@ -1,6 +1,6 @@
 ﻿// Names: Jakob Olive, Troy Mouton
 // Start Date: 2024-04-03
-// File Desc: This
+// File Desc: This file contains the game setup form as well as all data validation and storage that takes place within it.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -93,18 +93,18 @@ namespace HeartsCardGame
                 // Checking if the user entered a number higher than the number of cards in deck.
                 else if (int.TryParse(MaxScoreTextBox.Text, out int number))
                 {
-                    if (number < 0 || number > 500)
+                    if (number < 1 || number > 500)
                     {
                         // Clearing the input and appending error code, as well as returning false.
                         MaxScoreTextBox.Text = string.Empty;
                         MaxScoreTextBox.Focus();
                         outputMessage += "Please Enter A Number Within Range, Between 1 and 500." + Environment.NewLine;
                     }
-                }
-                // The input must be valid, set the max score.
-                else
-                {
-                    score = int.Parse(MaxScoreTextBox.Text);
+                    // Input must be a valid number within range. set the score.
+                    else
+                    {
+                        score = number;
+                    }
                 }
             }
             else

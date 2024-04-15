@@ -1,6 +1,7 @@
 ﻿// Names: Jakob Olive, Troy Mouton
 // Start Date: 2024-04-03
-// File Desc: This 
+// File Desc: This file contains the game theory including how each hand, round, and card is dealt with depending on multiple
+// factors that could arise durring the game.
 #region Usings
 using System;
 using System.Collections.Generic;
@@ -413,13 +414,22 @@ namespace HeartsCardGame
                     {
                         if (player.PlayerPoints >= score)
                         {
-                            // Do winner stuff here.
+                            // Displaying the winner and setting the bool to true.
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                MessageLabel.Text = player.PlayerName + " Wins The Game With A Total Of " + player.PlayerPoints + " Points! ";
+                            });
                             winnerFound = true;
                             break;
                         }
                     }
                 }
             });
+            if (winnerFound)
+            {
+                // Winner found, game over, display winner and disable the start game button.
+                StartGameButton.Enabled = false;
+            }
         }
 
         /// <summary>
