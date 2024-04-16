@@ -1,6 +1,6 @@
 ﻿// Names: Jakob Olive, Troy Mouton
 // Start Date: 2024-04-03
-// File Desc: This 
+// File Desc: This file contains the class theory that will handle the moves a Human player, or the user can commit to.
 #region Usings
 using System;
 using System.Collections.Generic;
@@ -67,8 +67,6 @@ namespace HeartsCardGame
         {
             // Local variables that will be used for validation.
             var nonHeartCards = playerHand.Where(card => card.Suit != "Hearts").ToList();
-            // Disable the buttons within the gameplay area.
-            DisableCards(control, cardButtons);
             // If this is the first play of the round, player can lead with any card.
             if (currentTrick.Count == 0)
             {

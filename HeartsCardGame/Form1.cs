@@ -1,7 +1,7 @@
 ﻿// Names: Jakob Olive, Troy Mouton
 // Start Date: 2024-04-03
 // File Desc: This file contains the game theory including how each hand, round, and card is dealt with depending on multiple
-// factors that could arise durring the game.
+// factors that could arise during the game.
 #region Usings
 using System;
 using System.Collections.Generic;
@@ -151,6 +151,8 @@ namespace HeartsCardGame
         /// </summary>
         private void GameSetup()
         {
+            // Enable start button. 
+            StartGameButton.Enabled = true;
             gameDeck.BuildDeck();
             // Add a value to the user.
             user = new HumanPlayer(name);
@@ -401,6 +403,8 @@ namespace HeartsCardGame
         /// </summary>
         private async void CommenceGameplay()
         {
+            // Disable start button.
+            StartGameButton.Enabled = false;
             // Boolean that will hold true only once a winner is found and the game is over.
             bool winnerFound = false;
             Console.WriteLine("Entering While Loop");
@@ -425,10 +429,10 @@ namespace HeartsCardGame
                     }
                 }
             });
+            // Set focus to the reset button.
             if (winnerFound)
             {
-                // Winner found, game over, display winner and disable the start game button.
-                StartGameButton.Enabled = false;
+                ResetGameButton.Focus();
             }
         }
 
@@ -485,6 +489,8 @@ namespace HeartsCardGame
                 Console.WriteLine("Human Player Turn");
                 user.PlayCard(this ,CardButtons, currentTrick, heartsBroken);
                 await WaitForPlayerInput();
+                // Disable the buttons within the gameplay area.
+                user.DisableCards(this, CardButtons);
                 return user.CardInPlay;
             }
             // Otherwise, it must be the AI.
@@ -620,9 +626,46 @@ namespace HeartsCardGame
                 HandNumTextBox.Text = handCount.ToString();
             });
         }
-        #endregion
-        #region Button Functions
-        
+
+        /// <summary>
+        /// Function that will hide the current window, display the setup panel, update the game window and display it with
+        /// the new defaults displayed.
+        /// </summary>
+        public void ResetGame()
+        {
+            // Winner found, the game is over, prompt the user to restart or exit.
+            Hide();
+            // Navigate back to the setup window (assuming MainWindow is the setup window)
+            GameSetupForm gameSetup = new GameSetupForm();
+            // Upon form close.
+            gameSetup.FormClosed += (s, ev) =>
+            {
+                // Handle the event when the user confirms the settings and wants to start the game.
+                if (gameSetup.DialogResult == DialogResult.OK)
+                {
+                    // Update the game variables with the new setup values.
+                    score = gameSetup.score;
+                    twoPlayerMode = gameSetup.twoPlayerMode;
+                    name = gameSetup.name;
+                    theme = gameSetup.theme;
+                    // Apply the selected theme and set defaults/game setup.
+                    ApplyTheme();
+                    SetDefaults();
+                    // Show the game window.
+                    Show();
+                }
+                else
+                {
+                    // If the user cancels the setup, close the game.
+                    Close();
+                }
+            };
+            // Display the game Setup. 
+            gameSetup.Show();
+        }
+        /// <summary>
+        /// Function that will bring up the rules form for the user to read.
+        /// </summary>
         private void ShowRules()
         {
             // Instantiate the rules form
@@ -630,49 +673,83 @@ namespace HeartsCardGame
             // Display the rules form.
             rulesForm.ShowDialog();
         }
-
+        #endregion
+        #region Button Functions
+        /// <summary>
+        /// Functionality that will begin the game using the button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartGameButton_Click(object sender, EventArgs e)
         {
             CommenceGameplay();
         }
 
-
+        /// <summary>
+        /// Functionality to reset the game using the reset button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResetGameButton_Click(object sender, EventArgs e)
         {
-            SetDefaults();
+            ResetGame();
         }
 
-
+        /// <summary>
+        /// Functions that are called when the user clicks the rules button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RulesButton_Click(object sender, EventArgs e)
         {
             ShowRules();
         }
 
-
+        /// <summary>
+        /// Functions that close the application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Close();
         }
-        
 
+        /// <summary>
+        /// Functionality that starts the game using the menu strip.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CommenceGameplay();
         }
 
-
+        /// <summary>
+        /// Resetting the game using the menu Strip.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResetGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetDefaults();
+            ResetGame();
         }
 
-
+        /// <summary>
+        /// Function that will show the rules using the menu strip.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RulesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowRules();
         }
 
-
+        /// <summary>
+        /// Function to close the app using the menu strip.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();

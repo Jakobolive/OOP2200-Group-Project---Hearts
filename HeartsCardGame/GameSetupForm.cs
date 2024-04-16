@@ -168,6 +168,7 @@ namespace HeartsCardGame
             }
             // Set SetupSubmitted to true.
             SetupSubmitted = true;
+            DialogResult = DialogResult.OK;
             // Close this form.
             Close();
         }
