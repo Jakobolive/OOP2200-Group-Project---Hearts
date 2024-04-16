@@ -97,7 +97,7 @@
             this.GUIThemeRadioButton.TabIndex = 10;
             this.GUIThemeRadioButton.TabStop = true;
             this.GUIThemeRadioButton.Tag = "GUI";
-            this.GUIThemeRadioButton.Text = "GUI Base Theme";
+            this.GUIThemeRadioButton.Text = "Nostalgia Theme";
             this.GUIThemeRadioButton.UseVisualStyleBackColor = true;
             // 
             // CardsThemeRadioButton

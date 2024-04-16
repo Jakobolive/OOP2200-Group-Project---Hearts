@@ -60,6 +60,13 @@ namespace HeartsCardGame
         /// </summary>
         private void SetDefaults()
         {
+            // Reset statistic labels.
+            Score1TextBox.Text = "0";
+            Score2TextBox.Text = "0";
+            Score3TextBox.Text = "0";
+            Score4TextBox.Text = "0";
+            TrickNumTextBox.Text = "0";
+            HandNumTextBox.Text = "0";
             DeleteTrick(trickList);
             DeleteTrick(CardButtons);
             trickCount = 0;
@@ -111,36 +118,40 @@ namespace HeartsCardGame
             switch (theme)
             {
                 case "Light":
-                    // Apply light theme.
-                    this.BackColor = Color.GhostWhite;
-                    GameMenuStrip.BackColor = Color.GhostWhite;
+                    // Apply light theme using functions first, Than individual parts.
+                    ChangeBackColors(this, Color.FromArgb(245, 245, 245)); // Off white
+                    ChangeTextColors(this, Color.Black); 
+                    // Apply theme to other sections of the form.
+                    this.BackColor = Color.FromArgb(211, 211, 211); // Light grey
+                    GameMenuStrip.BackColor = Color.FromArgb(245, 245, 245); // Off white
                     GameMenuStrip.ForeColor = Color.Black;
-                    ChangeBackColors(this, Color.GhostWhite);
-                    ChangeTextColors(this, Color.Black);
                     break;
                 case "Dark":
-                    // Apply dark theme.
-                    this.BackColor = Color.Black;
-                    GameMenuStrip.BackColor = Color.Black;
-                    GameMenuStrip.ForeColor = Color.GhostWhite;
-                    ChangeBackColors(this, Color.Black);
-                    ChangeTextColors(this, Color.GhostWhite);
+                    // Apply Dark theme using functions first, Than individual parts.
+                    ChangeBackColors(this, Color.FromArgb(40, 40, 40)); // Charcoal
+                    ChangeTextColors(this, Color.FromArgb(245, 245, 245)); // Off white
+                    // Apply theme to other sections of the form.
+                    this.BackColor = Color.FromArgb(64, 64, 64); // Dark Grey
+                    GameMenuStrip.BackColor = Color.FromArgb(64, 64, 64); // Dark Grey
+                    GameMenuStrip.ForeColor = Color.FromArgb(245, 245, 245); // Off white
                     break;
                 case "Card":
-                    // Apply card theme.
-                    this.BackColor = Color.DarkGreen;
-                    GameMenuStrip.BackColor = Color.DarkGreen;
-                    GameMenuStrip.ForeColor = Color.Black;
-                    ChangeBackColors(this, Color.DarkGreen);
+                    // Apply Card theme using functions first, Than individual parts.
+                    ChangeBackColors(this, Color.FromArgb(34, 139, 34)); // Forrest green
                     ChangeTextColors(this, Color.Black);
+                    // Apply theme to other sections of the form. 
+                    this.BackColor = Color.FromArgb(0, 100, 0); // Dark green
+                    GameMenuStrip.BackColor = Color.FromArgb(0, 100, 0); // Dark green
+                    GameMenuStrip.ForeColor = Color.Black;//FromArgb(245, 245, 245); // Off white
                     break;
                 case "GUI":
-                    // Apply GUI theme.
-                    this.BackColor = Color.DarkGray;
-                    GameMenuStrip.BackColor = Color.DarkGray;
-                    GameMenuStrip.ForeColor = Color.Black;
-                    ChangeBackColors(this, Color.DarkGray);
+                    // Apply GUI theme using functions first, Than individual parts.
+                    ChangeBackColors(this, Color.FromArgb(34, 177, 76)); // Pixel Green
                     ChangeTextColors(this, Color.Black);
+                    // Apply theme to other sections of the form.
+                    this.BackColor = Color.FromArgb(34, 177, 76); // Pixel green
+                    GameMenuStrip.BackColor = Color.FromArgb(34, 177, 76); // Pixel green
+                    GameMenuStrip.ForeColor = Color.Black;
                     break;
             }
         }
@@ -222,22 +233,22 @@ namespace HeartsCardGame
                 {
                     case "Light":
                         // Apply light theme.
-                        button.BackColor = Color.GhostWhite;
+                        button.BackColor = Color.FromArgb(245, 245, 245);
                         button.ForeColor = Color.Black;
                         break;
                     case "Dark":
                         // Apply dark theme.
-                        button.BackColor = Color.DarkGray;
-                        button.ForeColor = Color.Black;
+                        button.BackColor = Color.FromArgb(40, 40, 40); // Charcoal
+                        button.ForeColor = Color.FromArgb(245, 245, 245);
                         break;
                     case "Card":
                         // Apply card theme.
-                        button.BackColor = Color.DarkGreen;
+                        button.BackColor = Color.FromArgb(245, 245, 245); // Off white
                         button.ForeColor = Color.Black;
                         break;
                     case "GUI":
                         // Apply GUI theme.
-                        button.BackColor = Color.DarkGray;
+                        button.BackColor = Color.FromArgb(128, 128, 128);
                         button.ForeColor = Color.Black;
                         break;
                 }
@@ -295,22 +306,22 @@ namespace HeartsCardGame
                 {
                     case "Light":
                         // Apply light theme.
-                        button.BackColor = Color.GhostWhite;
+                        button.BackColor = Color.FromArgb(245, 245, 245);
                         button.ForeColor = Color.Black;
                         break;
                     case "Dark":
                         // Apply dark theme.
-                        button.BackColor = Color.DarkGray;
-                        button.ForeColor = Color.Black;
+                        button.BackColor = Color.FromArgb(40, 40, 40); // Charcoal;
+                        button.ForeColor = Color.White;
                         break;
                     case "Card":
                         // Apply card theme.
-                        button.BackColor = Color.DarkGreen;
+                        button.BackColor = Color.FromArgb(245, 245, 245); // Off white
                         button.ForeColor = Color.Black;
                         break;
                     case "GUI":
                         // Apply GUI theme.
-                        button.BackColor = Color.DarkGray;
+                        button.BackColor = Color.FromArgb(128, 128, 128);
                         button.ForeColor = Color.Black;
                         break;
                 }
@@ -418,16 +429,29 @@ namespace HeartsCardGame
                     {
                         if (player.PlayerPoints >= score)
                         {
-                            // Displaying the winner and setting the bool to true.
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                MessageLabel.Text = player.PlayerName + " Wins The Game With A Total Of " + player.PlayerPoints + " Points! ";
-                            });
+                            // Set the bool to true and break the while loop.
                             winnerFound = true;
                             break;
                         }
                     }
                 }
+                // Find the winner.
+                // Set the first index as the winner for validation purposes.
+                Player winningPlayer = players[0];
+                // Loop through players to test who has less points.
+                foreach (Player player in players)
+                {
+                    // If this player has less points than the winner, set them as the winner.
+                    if (player.PlayerPoints < winningPlayer.PlayerPoints)
+                    {
+                        winningPlayer = player;
+                    }
+                }
+                // Displaying the winner and setting the bool to true.
+                this.Invoke((MethodInvoker)delegate
+                {
+                    MessageLabel.Text = winningPlayer.PlayerName + " Wins The Game With A Total Of " + winningPlayer.PlayerPoints + " Points! ";
+                });
             });
             // Set focus to the reset button.
             if (winnerFound)

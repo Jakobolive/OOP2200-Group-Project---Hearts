@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeartsGame));
             this.OptionsGroupBox = new System.Windows.Forms.GroupBox();
             this.StartGameButton = new System.Windows.Forms.Button();
@@ -59,6 +60,7 @@
             this.HandFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.TrickFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.MessageLabel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.OptionsGroupBox.SuspendLayout();
             this.PlayerInfoGroupBox.SuspendLayout();
             this.GameInfoGroupBox.SuspendLayout();
@@ -85,6 +87,7 @@
             this.StartGameButton.Size = new System.Drawing.Size(238, 91);
             this.StartGameButton.TabIndex = 6;
             this.StartGameButton.Text = "Start Round";
+            this.toolTip1.SetToolTip(this.StartGameButton, "Click here to start the game.");
             this.StartGameButton.UseVisualStyleBackColor = true;
             this.StartGameButton.Click += new System.EventHandler(this.StartGameButton_Click);
             // 
@@ -95,6 +98,7 @@
             this.ExitButton.Size = new System.Drawing.Size(238, 85);
             this.ExitButton.TabIndex = 35;
             this.ExitButton.Text = "Exit";
+            this.toolTip1.SetToolTip(this.ExitButton, "Click here to exit the game.");
             this.ExitButton.UseVisualStyleBackColor = true;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
@@ -105,6 +109,7 @@
             this.RulesButton.Size = new System.Drawing.Size(238, 85);
             this.RulesButton.TabIndex = 34;
             this.RulesButton.Text = "Rules";
+            this.toolTip1.SetToolTip(this.RulesButton, "Click here to see our game rules menu.");
             this.RulesButton.UseVisualStyleBackColor = true;
             this.RulesButton.Click += new System.EventHandler(this.RulesButton_Click);
             // 
@@ -115,6 +120,7 @@
             this.ResetGameButton.Size = new System.Drawing.Size(238, 91);
             this.ResetGameButton.TabIndex = 33;
             this.ResetGameButton.Text = "Reset Game";
+            this.toolTip1.SetToolTip(this.ResetGameButton, "Click here to reset the game, the game setup menu will appear.");
             this.ResetGameButton.UseVisualStyleBackColor = true;
             this.ResetGameButton.Click += new System.EventHandler(this.ResetGameButton_Click);
             // 
@@ -136,6 +142,8 @@
             this.PlayerInfoGroupBox.TabIndex = 18;
             this.PlayerInfoGroupBox.TabStop = false;
             this.PlayerInfoGroupBox.Text = "Player Info";
+            this.toolTip1.SetToolTip(this.PlayerInfoGroupBox, "Player stats will be displayed here such as the names and the points that each pl" +
+        "ayer has.");
             // 
             // NameLabel
             // 
@@ -150,11 +158,12 @@
             // 
             this.Score4TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Score4TextBox.Enabled = false;
-            this.Score4TextBox.Location = new System.Drawing.Point(163, 141);
+            this.Score4TextBox.Location = new System.Drawing.Point(176, 141);
             this.Score4TextBox.Name = "Score4TextBox";
             this.Score4TextBox.ReadOnly = true;
-            this.Score4TextBox.Size = new System.Drawing.Size(72, 15);
+            this.Score4TextBox.Size = new System.Drawing.Size(35, 15);
             this.Score4TextBox.TabIndex = 31;
+            this.Score4TextBox.Text = "0";
             // 
             // Player4Label
             // 
@@ -168,11 +177,12 @@
             // 
             this.Score3TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Score3TextBox.Enabled = false;
-            this.Score3TextBox.Location = new System.Drawing.Point(163, 107);
+            this.Score3TextBox.Location = new System.Drawing.Point(176, 107);
             this.Score3TextBox.Name = "Score3TextBox";
             this.Score3TextBox.ReadOnly = true;
-            this.Score3TextBox.Size = new System.Drawing.Size(72, 15);
+            this.Score3TextBox.Size = new System.Drawing.Size(35, 15);
             this.Score3TextBox.TabIndex = 28;
+            this.Score3TextBox.Text = "0";
             // 
             // Player3Label
             // 
@@ -186,11 +196,12 @@
             // 
             this.Score2TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Score2TextBox.Enabled = false;
-            this.Score2TextBox.Location = new System.Drawing.Point(163, 73);
+            this.Score2TextBox.Location = new System.Drawing.Point(176, 73);
             this.Score2TextBox.Name = "Score2TextBox";
             this.Score2TextBox.ReadOnly = true;
-            this.Score2TextBox.Size = new System.Drawing.Size(72, 15);
+            this.Score2TextBox.Size = new System.Drawing.Size(35, 15);
             this.Score2TextBox.TabIndex = 25;
+            this.Score2TextBox.Text = "0";
             // 
             // Player2Label
             // 
@@ -204,16 +215,17 @@
             // 
             this.Score1TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Score1TextBox.Enabled = false;
-            this.Score1TextBox.Location = new System.Drawing.Point(163, 39);
+            this.Score1TextBox.Location = new System.Drawing.Point(176, 39);
             this.Score1TextBox.Name = "Score1TextBox";
             this.Score1TextBox.ReadOnly = true;
-            this.Score1TextBox.Size = new System.Drawing.Size(72, 15);
+            this.Score1TextBox.Size = new System.Drawing.Size(35, 15);
             this.Score1TextBox.TabIndex = 22;
+            this.Score1TextBox.Text = "0";
             // 
             // ScoreLabel
             // 
             this.ScoreLabel.AutoSize = true;
-            this.ScoreLabel.Location = new System.Drawing.Point(178, 21);
+            this.ScoreLabel.Location = new System.Drawing.Point(173, 20);
             this.ScoreLabel.Name = "ScoreLabel";
             this.ScoreLabel.Size = new System.Drawing.Size(43, 16);
             this.ScoreLabel.TabIndex = 19;
@@ -239,6 +251,8 @@
             this.GameInfoGroupBox.TabIndex = 13;
             this.GameInfoGroupBox.TabStop = false;
             this.GameInfoGroupBox.Text = "Game Info";
+            this.toolTip1.SetToolTip(this.GameInfoGroupBox, "Game stats will be displayed here such as the current trick number and hand numbe" +
+        "r.");
             // 
             // HandNumTextBox
             // 
@@ -249,6 +263,7 @@
             this.HandNumTextBox.ReadOnly = true;
             this.HandNumTextBox.Size = new System.Drawing.Size(100, 15);
             this.HandNumTextBox.TabIndex = 15;
+            this.HandNumTextBox.Text = "0";
             // 
             // TrickNumTextBox
             // 
@@ -259,6 +274,7 @@
             this.TrickNumTextBox.ReadOnly = true;
             this.TrickNumTextBox.Size = new System.Drawing.Size(100, 15);
             this.TrickNumTextBox.TabIndex = 17;
+            this.TrickNumTextBox.Text = "0";
             // 
             // TrickNumLabel
             // 
@@ -296,35 +312,35 @@
             this.ExitToolStripMenuItem});
             this.GameMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.GameMenuStrip.Name = "GameMenuStrip";
-            this.GameMenuStrip.Size = new System.Drawing.Size(1440, 30);
+            this.GameMenuStrip.Size = new System.Drawing.Size(1440, 28);
             this.GameMenuStrip.TabIndex = 22;
             this.GameMenuStrip.Text = "CardsMenuStrip";
             // 
             // StartGameToolStripMenuItem
             // 
             this.StartGameToolStripMenuItem.Name = "StartGameToolStripMenuItem";
-            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 26);
+            this.StartGameToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
             this.StartGameToolStripMenuItem.Text = "Start Game";
             this.StartGameToolStripMenuItem.Click += new System.EventHandler(this.StartGameToolStripMenuItem_Click);
             // 
             // ResetGameToolStripMenuItem
             // 
             this.ResetGameToolStripMenuItem.Name = "ResetGameToolStripMenuItem";
-            this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 26);
+            this.ResetGameToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
             this.ResetGameToolStripMenuItem.Text = "Reset Game";
             this.ResetGameToolStripMenuItem.Click += new System.EventHandler(this.ResetGameToolStripMenuItem_Click);
             // 
             // RulesToolStripMenuItem
             // 
             this.RulesToolStripMenuItem.Name = "RulesToolStripMenuItem";
-            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
+            this.RulesToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.RulesToolStripMenuItem.Text = "Rules";
             this.RulesToolStripMenuItem.Click += new System.EventHandler(this.RulesToolStripMenuItem_Click);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 26);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -334,6 +350,7 @@
             this.HandFlowLayoutPanel.Name = "HandFlowLayoutPanel";
             this.HandFlowLayoutPanel.Size = new System.Drawing.Size(1414, 332);
             this.HandFlowLayoutPanel.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.HandFlowLayoutPanel, "Your hand will be displayed here.");
             // 
             // TrickFlowLayoutPanel
             // 
@@ -341,6 +358,7 @@
             this.TrickFlowLayoutPanel.Name = "TrickFlowLayoutPanel";
             this.TrickFlowLayoutPanel.Size = new System.Drawing.Size(902, 372);
             this.TrickFlowLayoutPanel.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.TrickFlowLayoutPanel, "The current trick in play will be displayed here/.");
             // 
             // MessageLabel
             // 
@@ -413,6 +431,7 @@
         private System.Windows.Forms.Label Player2Label;
         private System.Windows.Forms.Label Player1Label;
         private System.Windows.Forms.Label MessageLabel;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

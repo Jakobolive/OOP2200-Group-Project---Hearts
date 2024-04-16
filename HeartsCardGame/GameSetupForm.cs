@@ -164,13 +164,17 @@ namespace HeartsCardGame
             // Check if the error message is not empty, if so throw Exception.
             if (!string.IsNullOrEmpty(outputMessage))
             {
-                throw new Exception(outputMessage);
+                MessageBox.Show(outputMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // Set SetupSubmitted to true.
-            SetupSubmitted = true;
-            DialogResult = DialogResult.OK;
-            // Close this form.
-            Close();
+            // Else, the data must be valid.
+            else
+            {
+                // Set SetupSubmitted to true.
+                SetupSubmitted = true;
+                DialogResult = DialogResult.OK;
+                // Close this form.
+                Close();
+            }
         }
         #endregion
     }
